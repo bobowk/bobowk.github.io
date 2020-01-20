@@ -51,11 +51,10 @@
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="">
 	  <label for="inputConfirmPassword" class="sr-only">Password</label>
-     <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="6LeC8NAUAAAAAE6t5SPaxZlGZ5dYQSs_EHjct0JV" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
-                            <input class="form-control d-none" data-recaptcha="true" required data-error="Please complete the Captcha">
-                            <div class="help-block with-errors"></div>
-                        </div>
+      <div class="g-recaptcha" data-sitekey="6LeC8NAUAAAAAE6t5SPaxZlGZ5dYQSs_EHjct0JV" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+           <input class="form-control d-none" data-recaptcha="true" data-error="Please complete the Captcha" required="">
+           <div class="help-block with-errors"></div>
+      </div>
       <a href="login.html"> Already have an account? Login here! </a>
 	  <button class="btn btn-lg btn-primary btn-block sign-in-btn" type="submit">Sign in</button>
     </form>
