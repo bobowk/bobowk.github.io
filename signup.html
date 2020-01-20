@@ -59,14 +59,5 @@
       <a href="login.html"> Already have an account? Login here! </a>
 	  <button class="btn btn-lg btn-primary btn-block sign-in-btn" type="submit">Sign up</button>
     </form>
-   <script>
-	   $('#inputUsername').on('input',function(e){
-	   	var userName = document.getElementById("inputUsername");
-	   	if(!/^[a-z0-9-]+$/i.test(userName.value)){
-		   	alert('Username can only contain alphanumeric numbers');
-		   	return;
-	   	}
-	   }
-	</script>
 </body>
 </html>
