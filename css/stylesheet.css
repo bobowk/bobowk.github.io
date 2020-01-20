@@ -1,0 +1,47 @@
+html, body{
+	margin:0;
+}
+
+/* navbar */
+.navbar{
+	
+}
+.logo-nav{
+	width:136px;
+	height:35px;
+}
+/* every page content style */
+.splash-header{
+	background-color:#EAECEF;
+}
+/* index content style */
+
+/* projects content style */
+
+/* login & signup content style */
+
+.form-signin{
+	max-width:400px;
+	padding:50px;
+	margin:0 auto;
+	margin-top:10vh;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.form-control:focus {
+  border-color:#ccc!important;
+  outline: 0 !important;
+  -webkit-box-shadow: none;
+  box-shadow: none!important;
+}
+.sign-in-btn{
+margin-top:10px;	
+}
