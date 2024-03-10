@@ -531,7 +531,10 @@ ul.tabs li.active {
     width:100%;
 }
 
-
+.start-container{
+  height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+  height: calc(var(--vh, 1vh) * 100);
+}
 @keyframes fadeInUp {
   0% {
     transform: translateY(100%);
@@ -569,13 +572,15 @@ ul.tabs li.active {
     }
     .accordian-info{
         display:none;
+        margin-top:10px;
     }
     .card-title{
         font-weight:600;
         text-align:left;
-        padding-bottom:0px;
-    
+        padding-bottom:0;
+        margin-bottom:0;
         font-size:18px!important;
+        line-height:1!important;
     }
      .bar {
         height: .15rem;
