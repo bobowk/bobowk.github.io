@@ -133,6 +133,13 @@ nav img, span{
 }
 html{
 
+
+  scroll-snap-type: both mandatory;
+}
+section{
+
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 .panel{
   scroll-snap-align: start;
@@ -213,7 +220,7 @@ a{
 
   section {
     height: max-content;
-    min-height: 100vh;
+    min-height: 100dvh;
   }
   .panel {
     scroll-snap-align: start;
