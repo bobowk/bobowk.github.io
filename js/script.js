@@ -1,26 +1,36 @@
 $(window).on("load", function() {
-      function fade(pageLoad) {
-          var windowTop = $(window).scrollTop(), windowBottom = windowTop + $(window).innerHeight();
-          var min = -0.8, max = 1, threshold = 0.02;
+  function fade(pageLoad) {
+      var windowHeight = $(window).innerHeight();
+      var windowTop = $(window).scrollTop(), windowBottom = windowTop + windowHeight;
+      var min = -0.8, max = 1, threshold = 0.02;
 
-          $(".fade").each(function() {
-              /* Check the location of each desired element */
-              var objectHeight = $(this).outerHeight(), objectTop = $(this).offset().top, objectBottom = $(this).offset().top + objectHeight;
+      $(".fade").each(function() {
+          /* Check the location of each desired element */
+          var objectHeight = $(this).outerHeight(), objectTop = $(this).offset().top, objectBottom = objectTop + objectHeight;
+          var objectCenter = objectTop + objectHeight / 2; // Calculate object's vertical center
+          var viewportCenter = windowTop + windowHeight / 2; // Calculate the vertical center of the viewport
+          var fadeStart = viewportCenter - objectHeight / 2; // Start fading when object's center aligns with the center of the viewport
 
-              /* Fade element in/out based on its visible percentage */
-              if (objectTop < windowTop) {
-                  if (objectBottom > windowTop) { $(this).fadeTo(0, min + ((max - min) * ((objectBottom - windowTop) / objectHeight))); }
-                  else if ($(this).css("opacity") >= min + threshold || pageLoad) { $(this).fadeTo(0, min); }
-              } else if (objectBottom > windowBottom) {
-                  if (objectTop < windowBottom) { $(this).fadeTo(0, min + ((max - min) * ((windowBottom - objectTop) / objectHeight))); }
-                  else if ($(this).css("opacity") >= min + threshold || pageLoad) { $(this).fadeTo(0, min); }
-              } else if ($(this).css("opacity") <= max - threshold || pageLoad) { $(this).fadeTo(0, max); }
-          });
-      }
-      fade(true); //fade elements on page-load
-      $(window).scroll(function() { fade(false); }); //fade elements on scroll
-  
+          /* Fade element in/out based on its visible percentage */
+          if (objectCenter > windowTop && objectCenter < windowBottom) { // Object's center is within the viewport
+              $(this).fadeTo(0, max);
+          } else if (objectBottom < windowTop || objectTop > windowBottom) { // Object is completely outside the viewport
+              $(this).fadeTo(0, min);
+          } else { // Object is partially in the viewport
+              var distanceToTop = Math.abs(objectTop - windowTop);
+              var distanceToBottom = Math.abs(objectBottom - windowBottom);
+              var fadeValue = 1 - (distanceToTop < distanceToBottom ? distanceToTop : distanceToBottom) / (windowHeight / 2);
+              fadeValue = fadeValue < 0 ? 0 : fadeValue; // Ensure fade value doesn't go negative
+              $(this).fadeTo(0, fadeValue);
+          }
+      });
+  }
+
+  fade(true); // Fade elements on page-load
+  $(window).scroll(function() { fade(false); }); // Fade elements on scroll
 });
+
+
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document

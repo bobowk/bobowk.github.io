@@ -541,6 +541,14 @@ ul.tabs li.active {
     width:100%;
     cursor:default;
 }
+.panel{
+  transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
+}
+button{
+  color:black!important;
+}
 .active-accordian{
     display:block;
 }
