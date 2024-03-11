@@ -230,6 +230,7 @@ a{
   }
   
   .scroll-down {
+    height:100dvh;
     position: absolute;
     bottom: env(safe-area-inset-bottom);
     left: 50%;
