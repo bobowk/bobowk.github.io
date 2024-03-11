@@ -1,5 +1,4 @@
 $(window).on("load", function() {
-  if ($(window).width() > 850) {
       function fade(pageLoad) {
           var windowTop = $(window).scrollTop(), windowBottom = windowTop + $(window).innerHeight();
           var min = -0.8, max = 1, threshold = 0.02;
@@ -20,7 +19,7 @@ $(window).on("load", function() {
       }
       fade(true); //fade elements on page-load
       $(window).scroll(function() { fade(false); }); //fade elements on scroll
-  }
+  
 });
 var items = $(".panel");
 var animating = false;
