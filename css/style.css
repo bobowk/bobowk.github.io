@@ -163,9 +163,6 @@ nav span{
     -webkit-align-items: center;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    height: 100vh;
-    height: 100dvh;
 }
 .skill{
 display:flex;
@@ -542,9 +539,9 @@ ul.tabs li.active {
     cursor:default;
 }
 .panel{
-  transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 0.5 ease-in-out;
+  -moz-transition: opacity 0.5 ease-in-out;
+  -webkit-transition: opacity 0.5 ease-in-out;
 }
 button{
   color:black!important;
@@ -560,8 +557,7 @@ button{
 }
 
 .start-container{
-    height: 100vh; /* Fallback for browsers that do not support Custom Properties */
-  height: calc(var(--vh, 1vh) * 100);
+  height: calc(100vh - calc(100vh - 100%)!important)
 }
 @keyframes fadeInUp {
   0% {
