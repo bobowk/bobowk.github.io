@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-*{
+section{
   animation: 1s fadeIn;
 }
 /*font classes*/
@@ -163,6 +163,7 @@ nav span{
     -webkit-align-items: center;
     justify-content: center;
     align-items: center;
+    height: calc(100vh - calc(100vh - 100%));
 }
 .skill{
 display:flex;
@@ -415,6 +416,8 @@ form input[type="submit"]{
   
   .image-container {
     text-align: center; /* Center-align the contents */
+
+    height: 100vh;
   }
   
   .inner-container {
@@ -539,9 +542,9 @@ ul.tabs li.active {
     cursor:default;
 }
 .panel{
-  transition: opacity 0.5 ease-in-out;
-  -moz-transition: opacity 0.5 ease-in-out;
-  -webkit-transition: opacity 0.5 ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
 }
 button{
   color:black!important;
@@ -556,9 +559,6 @@ button{
     width:100%;
 }
 
-.start-container{
-  height: calc(100vh - calc(100vh - 100%)!important)
-}
 @keyframes fadeInUp {
   0% {
     transform: translateY(100%);
@@ -652,6 +652,7 @@ button{
         border-radius:15px;
         width:auto;
     }
+    
 .row{
     display:flex;
     align-items:center;
@@ -672,7 +673,8 @@ button{
     justify-content: center;
     flex-direction:column;
     text-align:center;
-    height:100vh;
+
+    height: 100%;
     padding:10px;
     
   align-content: space-between;
