@@ -1,4 +1,5 @@
 $(window).on("load", function() {
+  if ($(window).width() > 850) {
       function fade(pageLoad) {
           var windowTop = $(window).scrollTop(), windowBottom = windowTop + $(window).innerHeight();
           var min = -0.8, max = 1, threshold = 0.02;
@@ -19,9 +20,32 @@ $(window).on("load", function() {
       }
       fade(true); //fade elements on page-load
       $(window).scroll(function() { fade(false); }); //fade elements on scroll
-  
+  }
 });
+var items = $(".panel");
+var animating = false;
 
+$(window).scroll(function() {
+    clearTimeout($.data(this, 'scrollTimer'));
+    if (!animating) {
+        $.data(this, 'scrollTimer', setTimeout(function() {
+          var count = 0;
+          items.each(function(key, value) {
+            /** Adjust the 200 value to make scroll larger than 200px before and after the top of the item **/
+           /** You can even make the value dynamic depending on screen by getting the viewport height and apply a percentage to it. ie: $( window ).height() * .8 ; **/
+            if (($(window).scrollTop() > ($(value).offset().top - 400)
+            && ($(window).scrollTop() - $(value).offset().top) < 400)
+            || ($(window).scrollTop() > ($(value).offset().top + 400)
+            && ($(window).scrollTop() - $(value).offset().top) < 400)) {
+              animating = true;
+              $('html, body').animate( { scrollTop: $(value).offset().top }, 250);
+              setTimeout(function() { animating = false; }, 300);
+              return false;
+            }
+          });
+        }, 200));
+    }
+});
 // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
 let vh = window.innerHeight * 0.01;
 // Then we set the value in the --vh custom property to the root of the document

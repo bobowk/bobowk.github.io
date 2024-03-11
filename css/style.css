@@ -131,6 +131,12 @@ nav img, span{
     vertical-align:middle;
     display:inline; 
 }
+html{
+  
+}
+.panel{
+  scroll-snap-align: start;
+}
 nav span{
     margin-left:10px;
 }
@@ -203,10 +209,6 @@ a{
 
 ::-webkit-scrollbar {
     display: none;
-  }
-
-  html {
-    scroll-snap-type: y mandatory;
   }
 
   section {
@@ -590,9 +592,6 @@ ul.tabs li.active {
         margin-bottom:0;
         font-size:18px!important;
         line-height:1!important;
-    }
-    html {
-      scroll-snap-type: y proximity;
     }
      .bar {
         height: .15rem;
