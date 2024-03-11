@@ -132,7 +132,7 @@ nav img, span{
     display:inline; 
 }
 html{
-  
+
 }
 .panel{
   scroll-snap-align: start;
@@ -231,9 +231,10 @@ a{
   
   .scroll-down {
     position: absolute;
-    bottom: 30px;
+    bottom: env(safe-area-inset-bottom);
     left: 50%;
     margin-left: -16px;
+    margin-bottom:10px;
     display: block;
     width: 32px;
     height: 32px;
