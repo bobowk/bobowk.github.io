@@ -373,17 +373,17 @@ form{
 }
 .name input{
     width:100%;
-    font-size:20px;
+    font-size:18px;
     padding:5px;
 }
 form input[type="email"]{
     width:100%;
-    font-size:20px;
+    font-size:18px;
     padding:5px;
 }
 form textarea{
     width:100%;
-    font-size:20px;
+    font-size:18px;
     padding:5px;
 }
 form input[type="submit"]{
