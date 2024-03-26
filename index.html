@@ -311,21 +311,22 @@
 <form action="https://api.web3forms.com/submit" method="POST">
     <input type="hidden" name="access_key" value="ee24971a-736c-489f-833c-18c4779fd11f">
 
-                            <div class="name">
+                            <div class="name" style="margin-bottom:3px;">
                                 <label for="fname"><span style="color:red">*</span>First Name:</label><br>
                                 <input type="fname" name="fname" required> <br>
                             </div>
-                            <div class="name">
+                            <div class="name" style="margin-bottom:3px;">
                                 <label for="lname"><span style="color:red">*</span>Last Name:</label><br>
                                 <input type="lname" name="lname" required>
                             </div>
                             <br>
                             <label for="email"><span style="color:red">*</span>Email:</label><br>
-                            <input type="email" name="email" required><br>
+                            <input type="email" name="email" required style="margin-bottom:3px;"><br>
                             <label for="message"><span style="color:red">*</span>Message:</label><br>
-                            <textarea name="message" style="font-family:'Poppins', sans-serif;font-size:18px;" required> </textarea>
-                            <br><br>
-
+                            <textarea name="message" style="font-family:'Poppins', sans-serif;margin-bottom:3px;" required> </textarea>
+                            <br>
+<!-- Default URL -->
+<input type="hidden" name="redirect" value="https://web3forms.com/success">
     <!-- hCaptcha Spam Protection -->
     <div class="h-captcha" data-captcha="true"></div>
                             
