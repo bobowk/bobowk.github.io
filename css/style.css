@@ -527,13 +527,14 @@ ul.tabs li.active {
 .tab_drawer_heading { display: none; }
 
 .info-card{
-    display:inline-block;
-    margin:10px;
-    border:0.5px solid #999;
-    padding:25px 15px 25px 15px;
-    text-align:left;
-    border-radius:15px;
-    width:30%;
+        display: inline-block;
+    margin: 10px;
+    border: 0.5px solid #999;
+    padding: 0 px 25px 15px;
+    text-align: left;
+    border-radius: 15px;
+    width: 30%;
+    overflow: hidden;
 }
 .small-img{
     width:35px;
@@ -559,11 +560,9 @@ ul.tabs li.active {
     font-size:18px;
 }
 .card-title{
-    font-weight:600;
-    text-align:left;
-    padding-bottom:20px;
-
-    font-size:20px!important;
+       font-weight: 600;
+    float: left;
+    padding: 10px;
 }
  .bar {
     height: .3rem;
@@ -582,10 +581,16 @@ ul.tabs li.active {
     box-shadow: 1px 2px 2px #6dd59455;
   }
 .info-card button{
-    background:none;
-    border:none;
-    width:100%;
-    cursor:default;
+    background: none;
+    border: none;
+    width: 100%;
+    cursor: default;
+    background: whitesmoke;
+    border-bottom: 1px solid gainsboro;
+}
+.accordian-info{
+	    display: block;
+    padding: 15px;
 }
 .panel{
   transition: opacity 0.5s ease-in-out;
