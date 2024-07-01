@@ -412,7 +412,54 @@ form input[type="submit"]{
     margin: 0 10px; /* Add some spacing between cards */
     
   }
-  
+  /* Create two equal columns that floats next to each other */
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left:90px;
+    margin-right:90px;
+  }
+  ul>li>a{
+    padding:2px;
+  }
+  ul>li>a:hover{
+    background-color: rgb(31, 130, 195);
+    color:white;
+
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    flex: 1;
+  }
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 850px) {
+ .center> .column {
+    display:block;
+  }
+  .center>.row {
+    display: block;
+margin:0;
+    margin-top:0;
+    margin-bottom:0;
+  }
+  ul{
+    margin:0;
+    font-size:14px;
+  }
+}
+  .list{
+    text-align:left;
+  }
+  .list>li{
+    margin-bottom:10px;
+  }
+  .list>li>p{
+    font-size:18px!important;
+  }
   .image-container {
     text-align: center; /* Center-align the contents */
 
@@ -621,7 +668,6 @@ button{
         border-radius: 5px;
         box-shadow: 1px 2px 2px #6dd59455;
       }
-    
     .info-card-container{
         flex-direction:column;
         justify-content: center;
