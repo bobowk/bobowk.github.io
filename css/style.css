@@ -648,6 +648,9 @@ button{
         cursor: pointer;
   
 }
+	.info-card{
+		width:auto;
+	}
 	.card-title{
 		padding:none!important;
 		margin:none!important;
