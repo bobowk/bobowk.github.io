@@ -640,14 +640,23 @@ button{
     display:none;
   }
     .info-card button{
-        background:none;
-        border:none;
-        width:100%;
-        cursor:pointer;
+        background: whitesmoke;
+        border: none;
+        padding: 20px;
+        width: 100%;
+        cursor: pointer;
+  
+}
+	.card-title{
+		padding:none!important;
+		margin:none!important;
     }
     .accordian-info{
-        display:none;
-        margin-top:10px;
+        display: none;
+        margin-top: 10px;
+        padding: none !important;
+        background: white;
+        padding: 10px 15px 20px 15px;
     }
     .card-title{
         font-weight:600;
