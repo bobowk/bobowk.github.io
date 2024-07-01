@@ -535,7 +535,7 @@ ul.tabs li.active {
     text-align:left;
     border-radius:15px;
     width:30%;
-	overflow:hidden;
+overflow:hidden;
 }
 .small-img{
     width:35px;
@@ -588,9 +588,6 @@ ul.tabs li.active {
     background: whitesmoke;
     padding: 15px;
     border-bottom: 1px solid gainsboro;
-}
-.info-card{
-width:auto;
 }
 .accordian-info{
 	    display: block;
