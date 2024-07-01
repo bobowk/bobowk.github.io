@@ -703,15 +703,6 @@ button{
             display:inline-block;
             width:85%;
         }
-    .info-card{
-        display:inline-block;
-        margin:10px;
-        border:0.5px solid #999;
-        padding:18px;
-        text-align:left;
-        border-radius:15px;
-        width:auto;
-    }
     
 .row{
     display:flex;
