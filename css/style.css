@@ -528,13 +528,15 @@ ul.tabs li.active {
 
 .info-card{
         display: inline-block;
-    margin: 10px;
-    border: 0.5px solid #999;
-    padding: 0 px 25px 15px;
-    text-align: left;
-    border-radius: 15px;
-    width: 30%;
-    overflow: hidden;
+        margin: 10px;
+        border: 0.5px solid #999;
+        padding: 0;
+        text-align: left;
+        border-radius: 15px;
+        width: auto;
+        overflow: hidden;
+    
+}
 }
 .small-img{
     width:35px;
@@ -562,7 +564,6 @@ ul.tabs li.active {
 .card-title{
        font-weight: 600;
     float: left;
-    padding: 10px;
 }
  .bar {
     height: .3rem;
