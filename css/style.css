@@ -580,13 +580,17 @@ ul.tabs li.active {
     border-radius: 5px;
     box-shadow: 1px 2px 2px #6dd59455;
   }
-.info-card button{
+.info-card button {
     background: none;
     border: none;
     width: 100%;
     cursor: default;
     background: whitesmoke;
+    padding: 15px;
     border-bottom: 1px solid gainsboro;
+}
+.info-card{
+width:auto;
 }
 .accordian-info{
 	    display: block;
