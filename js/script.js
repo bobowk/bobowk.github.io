@@ -7,13 +7,11 @@ function toggleNav() {
       navItems.classList.remove("active");
       navToggleIcon.classList.remove("fa-times");
       navToggleIcon.classList.add("fa-bars");
-
   } else {
       // Open nav bar
       navItems.classList.add("active");
       navToggleIcon.classList.remove("fa-bars");
       navToggleIcon.classList.add("fa-times");
-
   }
 }
 
