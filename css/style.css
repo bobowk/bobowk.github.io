@@ -148,6 +148,7 @@ nav span{
 .logo-img{
     height:50px;
     filter: invert(1);
+    
 }
 ul {
   display: flex;
@@ -340,7 +341,9 @@ p{
   background-size:cover!important;
   background-repeat:no-repeat!important;
 }
-
+#work{
+  margin-top:150px;
+}
 /*about*/
 .about{
   padding: 0px 10vw 60px 10vw;
@@ -355,20 +358,21 @@ p{
 }
 .about .title{
   font-family: "Noto Serif Display", serif;
+  text-align:left!important;
   font-optical-sizing: auto;
-  font-weight:600!important;
+  font-weight:normal!important;
   font-size:5em;
   margin-block-start: 0px!important;
   margin-block-end: 50px!important;
 }
 .about-info{
-  width:40vw;
-  margin-right:100px;
+  width:100%;
+  margin-right:50px;
   font-weight:200;
   line-height:1.1;
 }
 .about-image{
-  width:60vw;
+  width:100%;
   background: linear-gradient(90deg, #362c2c0a 100%, #1f1919 0%),url('../resources/brandon.png')!important;
   background-size:cover!important;
   background-position:top center!important;
@@ -534,6 +538,9 @@ footer a:hover{
   margin-top:300px;
   padding:80px 0 80px 0;
 }
+#work{
+  margin-top:150px;
+}
 .card-content{
   align-self: end;
   text-align:right;
@@ -561,7 +568,6 @@ footer a:hover{
     align-items: center;
     justify-content: left;
     width: 100vw;
-      transition: opacity 0.3s ease, visibility 0.3s ease; /* fade transition */
       opacity:0;
     font-size: 30px;
 }
@@ -639,7 +645,7 @@ nav{
   font-family: "Noto Serif Display", serif;
   text-align:left!important;
   font-optical-sizing: auto;
-  font-weight:600!important;
+  font-weight:normal!important;
   font-size:4em;
   margin-block-start: 0px!important;
   margin-block-end: 50px!important;
