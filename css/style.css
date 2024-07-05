@@ -356,25 +356,24 @@ p{
 }
 /*card background*/
 .tdcr{
-  background: linear-gradient(90deg, #362c2c47 75%, #1f1919 25%),url('../resources/tdcr.png')!important;
-  background-size:cover!important;
-  background-repeat:no-repeat!important;
+  background: linear-gradient(90deg, rgba(54, 44, 44, 0.28) 75%, #1f1919 25%), 
+  url('../resources/tdcr.png') no-repeat top center;
+background-size: cover; /* Ensure the image covers the entire element */
 }
 .prosthetic{
-  background: linear-gradient(90deg, #362c2c47 75%, #1f1919 25%),url('../resources/prosthetic.png')!important;
-  background-size:cover!important;
-  background-repeat:no-repeat!important;
+  background: linear-gradient(90deg, rgba(54, 44, 44, 0.28) 75%, #1f1919 25%), 
+  url('../resources/prosthetic.png') no-repeat top center;
+background-size: cover; /* Ensure the image covers the entire element */
 }
 .gripper{
-  background: linear-gradient(90deg, #362c2c47 75%, #1f1919 25%),url('../resources/gripper.png')!important;
-  background-size:cover!important;
-  background-position:bottom!important;
-  background-repeat:no-repeat!important;
+  background: linear-gradient(90deg, rgba(54, 44, 44, 0.28) 75%, #1f1919 25%), 
+  url('../resources/gripper.png') no-repeat center center;
+background-size: cover; /* Ensure the image covers the entire element */
 }
 .ccc{
-  background: linear-gradient(90deg, #362c2c47 75%, #1f1919 25%),url('../resources/ccc-web.jpg')!important;
-  background-size:cover!important;
-  background-repeat:no-repeat!important;
+  background: linear-gradient(90deg, rgba(54, 44, 44, 0.28) 75%, #1f1919 25%), 
+  url('../resources/ccc-web.jpg') no-repeat center center;
+background-size: cover; /* Ensure the image covers the entire element */
 }
 #work{
   margin-top:150px;
@@ -586,7 +585,7 @@ footer a{
     width:200px;
   }
 .card {
-  width: 380px;
+  width: 80vw;
   height: 380px;
   display: inline-flex;
   flex-direction: column;
