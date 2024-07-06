@@ -636,7 +636,7 @@ footer a{
     justify-content: left;
     width: 100vw;
       opacity:0;
-    font-size: 30px;
+    font-size: 20px;
 }
 .nav-items.active {
   transition: opacity 0.3s ease, visibility 0.3s ease; /* fade transition */
@@ -723,7 +723,7 @@ nav{
   margin-block-end: 50px!important;
 }
 .about-info{
-  text-align:left;
+  text-align:left;  
   margin-right:0;
   font-weight:200;
   line-height:1.1;
