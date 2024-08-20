@@ -10,244 +10,484 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <body>
-    <div id="home">
-<div class="wrapper smooth-scroll" id="wrapper">
+<div class="wrapper">
     <nav class="top-navbar poppins-medium ">
-        <div class="logo"><img class="logo-img" src="resources/logo.png"><span></span></div>
-        <div class="nav-left">
-            <div class="nav-items" id="nav-items">
-               
-                <ul>
-                    <li>
-                        <a class="nav-item" href="#home">Home</a>
-                    </li>
-                    <li>
-                        <a class="nav-item" href="#work">Work</a>
-                    </li>
-                    <li>
-                        <a class="nav-item" href="#about">About</a>
-                    </li>
-                    <li>
-                        <a class="nav-item" href="https://www.linkedin.com/in/brandon-woolcock" target="_blank">LinkedIn</a>
-                    </li>
-                    </ul>
-
-            </div>
-        </div>
-
-        <a href="javascript:void(0);" class="nav-responsive-toggle" style="z-index:99999" onclick="toggleNav()">
-            <i class="fas fa-bars"></i>
-          </a>
+        <div class="nav-item logo"><img class="logo-img" src="resources/logo.png"><span>bobowk</span></div>
     </nav>
 
-<script>
-    function toggleNav() {
-      const navItems = document.getElementById('nav-items');
-      const toggleIcon = document.getElementById('toggle-icon');
-  
-      if (navItems.style.display === 'none' || navItems.style.display === '') {
-        navItems.style.display = 'flex';
-        toggleIcon.classList.remove('fa-bars');
-        toggleIcon.classList.add('fa-times');
-      } else {
-        navItems.style.display = 'none';
-        toggleIcon.classList.remove('fa-times');
-        toggleIcon.classList.add('fa-bars');
-      }
-    }
-  </script>
-  <div class="navbar-placeholder">
-    
-  </div>
-    <div class="main-container" id="main-container">
-        <div class="home" id="home">
-            <div class="header rellax">
-                <div class="rellax"  data-rellax-speed="2">
-                    <p class="title">brandon cheng <br>woolcock</p>
-                    <p>manufacturing & mechatronics engineer</p>
-                   
-                    
+    <div class="container" id="container ">
+        <div id="nav">
+            <ul>
+                <li>
+                    <a class="active" href="#section01">
+                        <div class="label">Home</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#section02">
+                        <div class="label">About me</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#section03">
+                        <div class="label">My projects</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#section04">
+                        <div class="label">Contact me</div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <section class="panel fade section" id="section01">
+            <div class="image-container start-container" id="start-container">
+                <div class="image-left">
+                    <img src="resources/brandon.png" class="image-round">
                 </div>
-                <div class="arrow-placeholder ">
-                    <div class="box">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                      </div>
+                <div class="image-container-text">
+                    <h1>Hi, I'm Brandon!</h1>
+                    <p>I'm a mechatronics engineer ready to innovate & collaborate to build a better future together.
+                    </p>
+                    <a href="http://www.linkedin.com/in/brandon-woolcock" target="_blank"><i
+                            class="fa-brands fa-linkedin"></i></a>&nbsp;&nbsp;
+                    <a href="https://m.me/bobowk2" target="_blank"><i class="fa-brands fa-facebook-messenger"> </i>
+                    </a>&nbsp;
+                    <a href="https://instagram.com/bo.wk" target="_blank"><i
+                            class="fa-brands fa-instagram"></i></i></a>&nbsp;&nbsp;
+                    <a href="resources/Brandon Woolcock Resume 2024.pdf" target="_blank"><i
+                            class="fa-solid fa-file-arrow-down"></i></i></i></a>
+
+                    <span href="#" class="scroll-down" address="true"></span>
                 </div>
+
             </div>
-            
-        </div>
-        </div>
-        <div id="work" style="position:absolute;"></div>
-        <div class="work noselect " >
-            <div class="scrolling-wrapper noselect ">
-                <div class="card start noselect tdcr">
-                    <div class="card-content">
-                        <h2 class="noselect poppins-light">tendon-driven <br> continuum robot</h2>
-                        <a href="noselect javascript:alert('Coming soon... Watch this space!')">view</a>
-                    </div>
-                </div>
-                <div class="card prosthetic">
-                    <div class="card-content">
-                        <h2 class="noselect poppins-light">3D-printed <br> prosthetic hand</h2>
-                        <a href="noselect https://www.linkedin.com/posts/brandon-woolcock_3d-printed-prosthetic-hand-proof-of-concept-activity-7055404508029341696-USkc" target="_blank">view</a>
-                    </div>
-                </div>
-                <div class="card gripper">
-                    <div class="card-content">
-                        <h2 class="noselect poppins-light">food-capable <br> robotic gripper</h2>
-                        <a href="noselect https://www.youtube.com/watch?v=5jEzqvH-kxo" target="_blank">view</a>
-                    </div>
-                </div>
-                <div class="card end ccc">
-                    <div class="card-content">
-                        <h2 class="noselect poppins-light">connect city <br> church</h2>
-                        <a href="noselect https://www.connectcity.church">view</a>
-                    </div>
-                </div>
-                
-              <p class="card-arrow ">&#10230;</p>
-             
-              </div>
-        </div>
-        <div id="about"></div>
-        <div class="about rellax" id="about">
-            <div class="about-inner">
-                <div class="about-info rellax" data-rellax-speed="2">
-                    <p class="title">hey i'm <br>brandon</p>
-                    <p class="content">I'm an engineer from Melbourne, Australia. I specialise in robotics, manufacturing and sales.</p>
-                    <p class="content">I have both strong technical and interpersonal experience and am constantly looking to find ways to push the scope of engineering further.</p>
-                    <p class="content">My side hobbies include web development, 3D-printing, graphic design, music (I'm a drummer!) and social media content.</p>
-                    <p class="content">Think we can do great together? Don't hesistate to contact me and I'll try my best to get back to you ASAP!</p>
-                    <a href="mailto:me@bobowk.me">EMAIL</a>
-                    <a href="https://www.linkedin.com/in/brandon-woolcock" target="_blank">LINKEDIN</a>
-                    <a href="resources/Brandon+Cheng+Woolcock.pdf" target="_blank">RESUME</a>
-                </div>
-                <div class="about-image ">
-                        <p></p>
-                </div>
-            </div>
-            <div class="skills2-inner">
-                <div class="skills-container rellax" data-rellax-speed="2">
-                    <p class="skills-title">Technical Skills</p>
-                    <div class="skill">
-                        <div class="skill-icon">
-                            <i class="fa-brands fa-python" style="color:#fff;"></i>
-                        </div>
-                        <div class="skill-content">
-                            <p style="font-weight:200;margin-bottom:0;">High-level Languages</p>
-                            <p class="skill-span">Python, .NET, MATLAB</p>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-terminal" style="color:#fff;"></i>
-                        </div>
-                        <div class="skill-content">
-                            <p style="font-weight:200;margin-bottom:0;">Low-level Languages</p>
-                            <p class="skill-span">Assembly, C, C++</p>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-pen-ruler"style="color:#fff;"></i>
-                        </div>
-                        <div class="skill-content">
-                            <p style="font-weight:200;margin-bottom:0;">CAD Design</p>
-                            <p class="skill-span">Fusion360, SOLIDWORKS</p>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <div class="skill-icon">
-                            <i class="fa-solid fa-code" style="color:#fff;"></i>
-                        </div>
-                        <div class="skill-content">
-                            <p style="font-weight:200;margin-bottom:0;">Web Development</p>
-                            <p class="skill-span">HTML5, CSS3, JS, PHP</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="education-experience rellax" data-rellax-speed="2">
-                    <p class="skills-title" style="margin-bottom:18px;">Experience</p>
-                    <div class="job">
-                            
-                            <div class="skill">
-                                <div class="skill-icon">
-                                    <img src="resources/samsung.jpeg" class="small-img" style="">
-                                </div>
-                                <div class="skill-content">
-                                    <p style="font-weight:300;margin-bottom:0;margin-top:0;">Samsung</p>
-                                </a>
-                                    <p class="skill-small" style="margin-top:.8vh;margin-bottom:.8vh;">Sales Lead</p>
-                                    <p class="skill-small" style="font-weight:200;margin-top:0px;margin-bottom:0;"><i>June 2023 - Present</i></p>
-                                </div>
-                            </div>
+        </section>
+        <section class="panel fade section" id="section02">
+            <div class="image-container text-center">
 
-                    <br>
-                 
+                <div class="inner-container">
+                    <h1>About me</h1>
+                    <p>Learn more about my professional history.</p><br>
+                    <div class="info-card-container">
+                        <div class="info-card">
+                            <button class="accordian-toggle" onclick="toggleAccordian('skills')">
+                                <p class="card-title">Skills</p>
+                            </button>
 
-                        </div>
-
-                        <div class="job">
-                            <p class="skills-title" style="margin-bottom:18px;">Education</p>
-                         
+                            <div class="accordian-info" id="skills">
                                 <div class="skill">
                                     <div class="skill-icon">
-                                       
-                                <img src="resources/rmit_uni.jpeg" class="small-img" style="">
+                                        <i class="fa-brands fa-python" style="color:#4584B6;"></i>
                                     </div>
                                     <div class="skill-content">
-                                        <p style="font-weight:300;margin-bottom:0;margin-top:0;">RMIT University</p>
-                                        <p class="skill-small" style="margin-top:.8vh;margin-bottom:4px;">Bachelor of Engineering</p>
-                                        <p class="skill-small" style="font-weight:200;margin-top:0px;margin-bottom:0;"><i>2021 - 2024</i></p>
+                                        <p>High-level languages</p>
+                                        <div class="bar">
+                                            <div class="progress" style="width: 90%;"></div>
+                                        </div>
                                     </div>
                                 </div>
-                        <br>
-                     
+                                <div class="skill">
+                                    <div class="skill-icon">
+                                        <i class="fa-solid fa-terminal" style="color:#0432ff;"></i>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>Low-level Languages</p>
+                                        <div class="bar">
+                                            <div class="progress" style="width: 85%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill">
+                                    <div class="skill-icon">
+                                        <i class="fa-solid fa-pen-ruler"style="color:#8a04ff;"></i>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>CAD Design</p>
+                                        <div class="bar">
+                                            <div class="progress" style="width: 80%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="skill">
+                                    <div class="skill-icon">
+                                        <i class="fa-solid fa-code" style="color:#ff0468;"></i>
+                                    </div>
+                                    <div class="skill-content">
+                                        <p>Web-development</p>
+                                        <div class="bar">
+                                            <div class="progress" style="width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-    
+
+                        </div>
+                        <div class="info-card">
+                            <button class="accordian-toggle" onclick="toggleAccordian('experience')">
+                                <p class="card-title">Experience</p>
+                            </button>
+                            <div class="accordian-info" id="experience">
+                                <div class="inner-info-card">
+                                    <div class="job">
+                                        <a  target="_blank" href="https://www.linkedin.com/company/samsungaustralia"
+                                            style="color:black;line-height:1;">
+                                            <img src="resources/samsung.jpeg" class="small-img">
+
+
+                                            <div class="details">
+
+                                                <span
+                                                    style="font-weight:500;vertical-align:middle;font-size:18px;margin-left:10px;line-height:1;">Samsung
+                                                    Australia</span><br>
+                                                <span
+                                                    style="font-weight:400;vertical-align:middle;font-size:16px;margin-left:10px;line-height:1;">Experience
+                                                    Consultant</span>
+                                        </a>
+                                        <br>
+                                        <span
+                                            style="font-weight:300;vertical-align:middle;font-size:14px;margin-left:40px;line-height:1;">June
+                                            2023 - Present</span>
+
+                                    </div><br>
+                                    <div class="job">
+                                        <a target="_blank" href="https://www.linkedin.com/company/foodworkssupermarkets/"
+                                            style="color:black;line-height:1;">
+                                            <img src="resources/foodworks.jpeg" class="small-img">
+
+
+                                            <div class="details">
+
+                                                <span
+                                                    style="font-weight:500;vertical-align:middle;font-size:18px;margin-left:10px;line-height:1;">Foodworks
+                                                    </span><br>
+                                                <span
+                                                    style="font-weight:400;vertical-align:middle;font-size:16px;margin-left:10px;line-height:1;">Duty Manager</span>
+                                        </a>
+                                        <br>
+                                        <span
+                                            style="font-weight:300;vertical-align:middle;font-size:14px;margin-left:40px;line-height:1;">Apr 2021
+                                             - Mar 2023</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <button class="accordian-toggle" onclick="toggleAccordian('education')">
+                        <p class="card-title">Education</p>
+                    </button>
+                    <div class="accordian-info" id="education">
+                        <div class="inner-info-card">
+                            <img src="resources/rmit_uni.jpeg" class="small-img">
+                            <div class="details">
+                                <span
+                                    style="font-weight:500;vertical-align:middle;font-size:18px;margin-left:10px;line-height:1;">RMIT
+                                    University</span><br>
+                                <span
+                                    style="font-weight:300;vertical-align:middle;font-size:14px;margin-left:10px;line-height:1;">2020
+                                    - 2024</span><br>
+
+                            </div>
+
+
+                        </div>
+                        <p
+                            style="font-weight:400;vertical-align:middle;font-size:16px;padding-left:40px;line-height:1.4;">
+                            Bachelor of Engineering (Manufacturing & Mechatronics Engineering) (Honours)</p>
                     </div>
                 </div>
             </div>
-                </div>
-            </div>
-            
-            </div>           
-        </div>
-        <footer class="">
-            <div class="footer-col-1">
-                <div class="logo"><img class="logo-img" src="resources/logo.png"><span></span></div>
-                <p class="poppins-light" style="color:white;margin-bottom:0;">Feel free to contact me whenever</p>
-                <a href="mailto:brwck@yahoo.com" class="poppins-light" style="">me@bobowk.me</a>
-                <div class="copyright" class="poppins-light" style="color:rgb(88, 88, 88);margin-top:30px;">
-                    &copy;
-                    <span id="copyright">
-                        <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
-                    </span>
-                    <br>Hosted on Github.<br>
-                    Designed and made by me.
-                </div>
-            </div>
-            <div class="footer-col-2">
-                <div class="logo"><img class="sig-img" src="resources/sig.png" style="filter:invert(1);float:right;"><span></span></div>
-            </div>
-            
-        </footer>
+
     </div>
-</div>
+    </section>
+    <script>
+        function toggleAccordian(id) {
+            if (window.innerWidth < 850) {
+                var panel = document.getElementById('experience');
+                var panelSkills = document.getElementById('skills');
+                var panelEducation = document.getElementById('education');
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="js/rellax.min.js"></script>
-<script src="js/script.js"></script>
-<script>
-    var rellax = new Rellax('.rellax', {
-        center: true
-      });
-</script>
+                // Hide all panels except the clicked one
+                if (panel.id !== id) {
+                    panel.style.display = 'none';
+                }
+                if (panelSkills.id !== id) {
+                    panelSkills.style.display = 'none';
+                }
+                if (panelEducation.id !== id) {
+                    panelEducation.style.display = 'none';
+                }
 
+                // Toggle display of the clicked panel
+                var clickedPanel = document.getElementById(id);
+                if (clickedPanel.style.display === 'block') {
+                    clickedPanel.style.display = 'none';
+                } else {
+                    clickedPanel.style.display = 'block';
+                }
+            }
+        }
+        window.addEventListener('resize', function (event) {
+            if (window.innerWidth > 850) {
+                var panel = document.getElementById('experience').style.display = 'block';
+                var panel = document.getElementById('skills').style.display = 'block';
+                var panel = document.getElementById('education').style.display = 'block';
+
+            } else {
+                var panel = document.getElementById('experience').style.display = 'none';
+                var panel = document.getElementById('skills').style.display = 'none';
+                var panel = document.getElementById('education').style.display = 'none';
+            }
+        });
+    </script>
+    <section class="panel fade section" id="section03">
+        <div class="image-container text-center">
+
+            <div class="inner-container">
+
+                <h1>My projects</h1>
+                <p style="margin:0 10px 0 10px;">Here's a list of projects I've been incredibly lucky to have worked on.</p><br>
+
+                <div class="card-container">
+                    <div class="card-collection">
+                        <div class="card card-150">
+                            <a href="javascript:alert('Coming soon... Watch this space!')" target=""> <img
+                                    src="resources/Pub_2019-amanov-ijrr.jpeg" class="img-250"><br>
+                                Continuum Robot</a>
+                        </div>
+                        <div class="card card-150">
+                            <a href="https://www.youtube.com/watch?v=5jEzqvH-kxo" id="video1" target="_blank"><img src="resources/gripper.png"
+                                    class="img-250"><br>
+                                Robot Gripper</a>
+                        </div>
+                        <div class="card card-150">
+                            <a href="https://www.linkedin.com/posts/brandon-woolcock_3d-printed-prosthetic-hand-proof-of-concept-activity-7055404508029341696-USkc" target="_blank"><img src="resources/prosthetic.png"
+                                    class="img-250"><br>
+                                Prosthetic Hand</a>
+                        </div>
+                        <div class="card card-150">
+                            <a href="https://www.linkedin.com/posts/brandon-woolcock_engineering-activity-6892755799437910016-_wcl" target="_blank"> <img src="resources/rocket.png"
+                                    class="img-250"><br>
+                                Alpha Rocket</a>
+                        </div>
+                        <div class="card card-150">
+                            <a href="http://www.connectcity.church" target="_blank"><img src="resources/cccweb.png"
+                                    class="img-250"><br>
+                                Connect City Church</a>
+                        </div>
+                        <div class="card card-150">
+                            <a href="https://sourceforge.net/projects/worship-net/" target="_blank"> <img src="resources/worshipnet.png"
+                                    class="img-250"><br>
+                                Worship.NET</a>
+                        </div>
+                        <div class="card card-150">
+                            <!--margin placeholder-->
+                            <span style="opacity:0;">.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        </div>
+    </section>
+
+    <section class="panel fade section" id="section04">
+        <div class="image-container text-center">
+
+            <div class="inner-container">
+                <h1>Get in touch</h1>
+                <p>Feel free to contact me and I'll endeavour to reply asap.</p><br>
+                <a href="mailto:brwck@yahoo.com"><i class="fa-solid fa-envelope"></i> brwck@yahoo.com</a><br><br>
+                <a href="http://www.linkedin.com/in/brandon-woolcock" target="_blank"><i
+                        class="fa-brands fa-linkedin"></i> Linkedin</a><br><br>
+                <a href="http://m.me/bobowk2" target="_blank"><i class="fa-brands fa-facebook-messenger"> </i>
+                    Messenger</a>
+                            
+                        <form method="post" action="">
+                            <div class="name">
+                                <label for="fname"><span style="color:red">*</span>First Name:</label><br>
+                                <input type="fname" required> <br>
+                            </div>
+                            <div class="name">
+                                <label for="lname"><span style="color:red">*</span>Last Name:</label><br>
+                                <input type="lname" required>
+                            </div>
+                            <br><br>
+                            <label for="email"><span style="color:red">*</span>Email:</label><br>
+                            <input type="email" required><br><br>
+                            <label for="message"><span style="color:red">*</span>Message:</label><br>
+                            <textarea name="message" required> </textarea>
+                            <br><br>
+                            <script>
+                                window.console = window.console || function(t) {};
+                              </script>
+                              
+                                
+                                
+                                <script>
+                                if (document.location.search.match(/type=embed/gi)) {
+                                  window.parent.postMessage("resize", "*");
+                                }
+                              </script>
+                              
+                              
+                              <body translate="no" data-new-gr-c-s-check-loaded="14.997.0" data-gr-ext-installed="">
+                                <button class="button" style="">
+                                  <span class="default">Send</span>
+                                  <span class="success">Sent</span>
+                                  <div class="left"></div>
+                                  <div class="right"></div>
+                              </button>
+                              
+                                  <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+                              
+                                <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+                                    <script id="rendered-js">
+                              document.querySelectorAll('.button').forEach(button => {
+                              
+                                let getVar = variable => getComputedStyle(button).getPropertyValue(variable);
+                              
+                                button.addEventListener('click', e => {
+                              
+                                  if (!button.classList.contains('active')) {
+                              
+                                    button.classList.add('active');
+                              
+                                    gsap.to(button, {
+                                      keyframes: [{
+                                        '--left-wing-first-x': 50,
+                                        '--left-wing-first-y': 100,
+                                        '--right-wing-second-x': 50,
+                                        '--right-wing-second-y': 100,
+                                        duration: .2,
+                                        onComplete() {
+                                          gsap.set(button, {
+                                            '--left-wing-first-y': 0,
+                                            '--left-wing-second-x': 40,
+                                            '--left-wing-second-y': 100,
+                                            '--left-wing-third-x': 0,
+                                            '--left-wing-third-y': 100,
+                                            '--left-body-third-x': 40,
+                                            '--right-wing-first-x': 50,
+                                            '--right-wing-first-y': 0,
+                                            '--right-wing-second-x': 60,
+                                            '--right-wing-second-y': 100,
+                                            '--right-wing-third-x': 100,
+                                            '--right-wing-third-y': 100,
+                                            '--right-body-third-x': 60 });
+                              
+                                        } },
+                                      {
+                                        '--left-wing-third-x': 20,
+                                        '--left-wing-third-y': 90,
+                                        '--left-wing-second-y': 90,
+                                        '--left-body-third-y': 90,
+                                        '--right-wing-third-x': 80,
+                                        '--right-wing-third-y': 90,
+                                        '--right-body-third-y': 90,
+                                        '--right-wing-second-y': 90,
+                                        duration: .2 },
+                                      {
+                                        '--rotate': 50,
+                                        '--left-wing-third-y': 95,
+                                        '--left-wing-third-x': 27,
+                                        '--right-body-third-x': 45,
+                                        '--right-wing-second-x': 45,
+                                        '--right-wing-third-x': 60,
+                                        '--right-wing-third-y': 83,
+                                        duration: .25 },
+                                      {
+                                        '--rotate': 55,
+                                        '--plane-x': -8,
+                                        '--plane-y': 24,
+                                        duration: .2 },
+                                      {
+                                        '--rotate': 40,
+                                        '--plane-x': 45,
+                                        '--plane-y': -180,
+                                        '--plane-opacity': 0,
+                                        duration: .3,
+                                        onComplete() {
+                                          setTimeout(() => {
+                                            button.removeAttribute('style');
+                                            gsap.fromTo(button, {
+                                              opacity: 0,
+                                              y: -8 },
+                                            {
+                                              opacity: 1,
+                                              y: 0,
+                                              clearProps: true,
+                                              duration: .3,
+                                              onComplete() {
+                                                button.classList.remove('active');
+                                              } });
+                              
+                                          }, 2000);
+                                        } }] });
+                              
+                              
+                              
+                                    gsap.to(button, {
+                                      keyframes: [{
+                                        '--text-opacity': 0,
+                                        '--border-radius': 0,
+                                        '--left-wing-background': getVar('--primary-darkest'),
+                                        '--right-wing-background': getVar('--primary-darkest'),
+                                        duration: .1 },
+                                      {
+                                        '--left-wing-background': getVar('--primary'),
+                                        '--right-wing-background': getVar('--primary'),
+                                        duration: .1 },
+                                      {
+                                        '--left-body-background': getVar('--primary-dark'),
+                                        '--right-body-background': getVar('--primary-darkest'),
+                                        duration: .4 },
+                                      {
+                                        '--success-opacity': 1,
+                                        '--success-scale': 1,
+                                        duration: .25,
+                                        delay: .25 }] });
+                              
+                              
+                              
+                                  }
+                              
+                                });
+                              
+                              });
+                              //# sourceURL=pen.js
+                                  </script>
+                              
+                                
+                              
+                              
+                              
+                              
+                               
+                              </body></html>
+                            </form>
+                            
+                        
+            </div>
+
+        </div>
+    </section>
+    </div>
+
+    <script src="js/script.js"></script>
+  
+        </div>
 </body>
+
 </html>
