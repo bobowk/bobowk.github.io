@@ -397,13 +397,13 @@ background-size: cover; /* Ensure the image covers the entire element */
   font-weight:normal!important;
   font-size:5.5vw;
   margin-block-start: 0px!important;
-  margin-block-end: 50px!important;
+  margin-block-end: 40px!important;
 }
 .about-info{
   width:100%;
   margin-right:50px;
   font-weight:200;
-  line-height:1.1;
+  line-height:1;
 }
 .about-image{
   width:100%;
@@ -473,7 +473,7 @@ background-size: cover; /* Ensure the image covers the entire element */
 .skills2-inner{
   display:flex;
   flex-direction:row;
-  margin-top:20px;
+  margin-top:0px;
 }
 .job {
   width: auto;
@@ -720,7 +720,7 @@ nav{
   font-weight:normal!important;
   font-size:4em;
   margin-block-start: 0px!important;
-  margin-block-end: 50px!important;
+  margin-block-end: 40px!important;
 }
 .about-info{
   text-align:left;  
