@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Easter Egg Hunt Clues</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #1a1a1a;
+      color: #333;
+      text-align: center;
+      margin: 0;
+      padding: 10px;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 8vw;
+      color: #fff;
+      margin: 10px 0 20px;
+    }
+
+    .egg-container {
+      position: relative;
+      width: 50vw;
+      max-width: 200px;
+      height: 70vw;
+      max-height: 280px;
+      margin: 0 auto 15px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .egg {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #f5f5f5 30%, #e0e0e0 100%);
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .egg-left, .egg-right {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      transition: transform 0.5s ease;
+      opacity: 0;
+    }
+
+    .egg-left {
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+      transform: translateX(0);
+      background: linear-gradient(to bottom, #f5f5f5 30%, #e0e0e0 100%);
+      box-shadow: inset 5px 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .egg-right {
+      clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
+      transform: translateX(0);
+      background: linear-gradient(to bottom, #f5f5f5 30%, #e0e0e0 100%);
+      box-shadow: inset -5px 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .egg-cracked .egg-left {
+      transform: translateX(-30%);
+      opacity: 1;
+    }
+
+    .egg-cracked .egg-right {
+      transform: translateX(30%);
+      opacity: 1;
+    }
+
+    .egg-cracked .egg-whole {
+      opacity: 0;
+    }
+
+    .clue-paper {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      max-width: 450px;
+      min-height: 60px;
+      z-index: 10;
+      background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD0SURBVHhe3doxCsJAFATB6b8vLsgWvIkd2IpVKhV8T2N7L5Jky5Yta3z58mXj27dvf/ny5cvXr18/vn37duPbt2+/fPnyl9/vv//+9u3bje/fvv3ly5evX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pXv7wP5B8yS4XPGWvMAAAAASUVORK5CYII=');
+      background-size: cover;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .clue-paper.visible {
+      display: flex;
+    }
+
+    .paper-background {
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEeSURBVHhe3doxDsJQEETR3l+wLbgQX4gtuBBbUZT4nkb3XqS2trb2/Pnz58fXr1+/fPnylS9fvnz58uXLl79///7ly5evXL58+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvnz58pUvX758+cqXL1++fPnKly9fvvL9fQDPYifnHIGofAAAAABJRU5ErkJggg==');
+      background-size: cover;
+      background-color: #f5f5f5;
+      width: 90%;
+      min-height: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px;
+      font-size: 1em;
+      color: #333;
+      line-height: 1.2;
+      white-space: normal;
+      overflow-wrap: break-word;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .button {
+      background: #888;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin: 5px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 4vw;
+      font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+      min-width: 90px;
+      touch-action: manipulation;
+    }
+
+    .button:hover {
+      background: #666;
+      transform: scale(1.05);
+    }
+
+    .button:disabled {
+      background: #444;
+      color: #777;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .button-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 9vw; }
+      .button { font-size: 4.5vw; padding: 7px 14px; }
+      .paper-background { font-size: 3vw; }
+      .clue-paper { min-height: 55px; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Easter Egg Hunt Quest</h1>
+  <div id="eggContainer" class="egg-container">
+    <div id="eggWhole" class="egg egg-whole"></div>
+    <div id="eggLeft" class="egg egg-left"></div>
+    <div id="eggRight" class="egg egg-right"></div>
+    <div id="cluePaper" class="clue-paper">
+      <div id="paperBackground" class="paper-background"></div>
+    </div>
+  </div>
+  <div class="button-container">
+    <button id="backButton" class="button" disabled>Back</button>
+    <button id="nextButton" class="button" disabled>Next</button>
+  </div>
+
+  <script>
+    const clues = [
+      "Start in your room where you watch with glee, an egg's by the bedroom TV!",
+      "Next, where you wash with a splash and a blink, look for an egg by the bathroom sink!",
+      "Where clothes get clean with a spin and a dance, an egg's near the washing machine, take a chance!",
+      "Where meals are shared with family in sight, an egg's hiding under the dining table tonight!",
+      "In the kitchen where snacks are prepared with care, an egg's on the bench, waiting there!",
+      "Check where you grab what unlocks the door, an egg's inside the key holder, explore!",
+      "In the loungeroom where music can bloom, an egg's by the drum kit, filling the room!",
+      "Step outside where the entrance is great, your last egg's by the front gate!"
+    ];
+
+    let currentClue = 0;
+    let isEggCracked = false;
+
+    const cluePaper = document.getElementById('cluePaper');
+    const paperBackground = document.getElementById('paperBackground');
+    const backButton = document.getElementById('backButton');
+    const nextButton = document.getElementById('nextButton');
+    const eggContainer = document.getElementById('eggContainer');
+    const eggWhole = document.getElementById('eggWhole');
+    const eggLeft = document.getElementById('eggLeft');
+    const eggRight = document.getElementById('eggRight');
+
+    function updateClue() {
+      // Ensure the clue paper is hidden at the start
+      cluePaper.classList.remove('visible');
+      
+      paperBackground.innerHTML = `Clue #${currentClue + 1}<br>${clues[currentClue]}`;
+      backButton.disabled = currentClue === 0;
+      nextButton.disabled = currentClue === clues.length - 1 || !isEggCracked;
+      nextButton.textContent = currentClue === clues.length - 1 ? "Finish" : "Next";
+      isEggCracked = false;
+      eggContainer.classList.remove('egg-cracked');
+      eggWhole.style.opacity = '1';
+      eggLeft.style.opacity = '0';
+      eggRight.style.opacity = '0';
+    }
+
+    eggContainer.addEventListener('click', () => {
+      if (!isEggCracked) {
+        eggContainer.classList.add('egg-cracked');
+        eggWhole.style.opacity = '0';
+        eggLeft.style.opacity = '1';
+        eggRight.style.opacity = '1';
+        setTimeout(() => {
+          cluePaper.classList.add('visible');
+          nextButton.disabled = currentClue === clues.length - 1;
+        }, 500);
+        isEggCracked = true;
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      if (currentClue < clues.length - 1 && isEggCracked) {
+        currentClue++;
+        updateClue();
+      }
+    });
+
+    backButton.addEventListener('click', () => {
+      if (currentClue > 0) {
+        currentClue--;
+        updateClue();
+      }
+    });
+
+    updateClue();
+  </script>
+</body>
+</html>
