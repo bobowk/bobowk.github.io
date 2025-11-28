@@ -1,226 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bobowk - Photography</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography Portfolio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #ffffff;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #fff;
-            color: #000;
-        }
+    /* Masonry-style grid using CSS columns */
+    .gallery {
+      column-gap: 0;
+      width: 100%;
+    }
 
-        .header {
-            padding: 40px 20px;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    /* Default desktop: 4 columns */
+    .gallery {
+      columns: 4;
+    }
 
-        .header h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            margin-bottom: 8px;
-            color: #000;
-        }
+    /* Tablet */
+    @media (max-width: 1200px) {
+      .gallery {
+        columns: 3;
+      }
+    }
 
-        .header p {
-            color: #666;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-        }
+    @media (max-width: 900px) {
+      .gallery {
+        columns: 2;
+      }
+    }
 
-        .gallery {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px 15px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
+    /* Mobile: 1 column */
+    @media (max-width: 600px) {
+      .gallery {
+        columns: 1;
+      }
+    }
 
-        .photo {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4/5;
-            background: #f5f5f5;
-            cursor: pointer;
-        }
+    .gallery img {
+      width: 100%;
+      margin: 0;
+      display: block;
+      break-inside: avoid;
+    }
 
-        .photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.6s ease, opacity 0.3s ease;
-        }
-
-        .photo:hover img {
-            transform: scale(1.08);
-            opacity: 0.9;
-        }
-
-        .photo-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 15px;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #fff;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .photo:hover .photo-label {
-            opacity: 1;
-        }
-
-        .contact {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .contact h2 {
-            font-size: 2rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-
-        .contact p {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 30px;
-            line-height: 1.6;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .contact-links a {
-            color: #000;
-            text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            padding: 12px 30px;
-            border: 1px solid #000;
-            transition: all 0.3s ease;
-        }
-
-        .contact-links a:hover {
-            background: #000;
-            color: #fff;
-        }
-
-        @media (min-width: 768px) {
-            .gallery {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                padding: 40px 20px;
-            }
-
-            .header {
-                padding: 60px 20px;
-            }
-
-            .header h1 {
-                font-size: 3.5rem;
-            }
-
-            .contact {
-                padding: 80px 20px;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .gallery {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 25px;
-            }
-        }
-    </style>
+    header {
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <h1>BOBOWK</h1>
-        <p>PHOTOGRAPHY</p>
-    </header>
+  <header>My Photography</header>
 
-    <div class="gallery">
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1524368535928-5b5e00ddc76b?w=600&h=750&fit=crop" alt="Concert">
-            <div class="photo-label">CONCERT</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=750&fit=crop" alt="Live Music">
-            <div class="photo-label">LIVE MUSIC</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=750&fit=crop" alt="Landscape">
-            <div class="photo-label">LANDSCAPE</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop" alt="Portrait">
-            <div class="photo-label">PORTRAIT</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&h=750&fit=crop" alt="Event">
-            <div class="photo-label">EVENT</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=600&h=750&fit=crop" alt="Performance">
-            <div class="photo-label">PERFORMANCE</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=750&fit=crop" alt="Nature">
-            <div class="photo-label">NATURE</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=600&h=750&fit=crop" alt="Urban">
-            <div class="photo-label">URBAN</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=600&h=750&fit=crop" alt="Sports">
-            <div class="photo-label">SPORTS</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=750&fit=crop" alt="Documentary">
-            <div class="photo-label">DOCUMENTARY</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=750&fit=crop" alt="Stage">
-            <div class="photo-label">STAGE</div>
-        </div>
-        <div class="photo">
-            <img src="https://images.unsplash.com/photo-1464207687429-7505649dae38?w=600&h=750&fit=crop" alt="Architecture">
-            <div class="photo-label">ARCHITECTURE</div>
-        </div>
-    </div>
-
-    <section class="contact">
-        <h2>GET IN TOUCH</h2>
-        <p>Available for freelance photography projects, events, and collaborations.<br>Let's create something amazing together.</p>
-        <div class="contact-links">
-            <a href="mailto:hello@bobowk.com">EMAIL</a>
-            <a href="https://instagram.com/bobowk" target="_blank">INSTAGRAM</a>
-            <a href="tel:+1234567890">PHONE</a>
-        </div>
-    </section>
+  <div class="gallery">
+    <img src="https://source.unsplash.com/random/800x1200?nature" />
+    <img src="https://source.unsplash.com/random/900x900?city" />
+    <img src="https://source.unsplash.com/random/800x1000?portrait" />
+    <img src="https://source.unsplash.com/random/700x900?travel" />
+    <img src="https://source.unsplash.com/random/1000x1400?street" />
+    <img src="https://source.unsplash.com/random/900x1600?landscape" />
+    <img src="https://source.unsplash.com/random/800x800?people" />
+    <img src="https://source.unsplash.com/random/700x1100?film" />
+    <img src="https://source.unsplash.com/random/900x1300?architecture" />
+  </div>
 </body>
 </html>
