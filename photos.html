@@ -1,75 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Photography Portfolio</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Photo Grid Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Tailwind Configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'primary-dark': '#1c1917', /* Near-black */
+                        'secondary-dark': '#292524', /* Dark gray-brown */
+                        'accent-gold': '#d4ac0d',
+                    }
+                }
+            }
+        }
+        /* Hide scrollbar for aesthetic purposes, while allowing scrolling */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        /* Simple hover effect for images */
+        .image-card img {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            /* Ensure the image takes up 100% of the container which is crucial for the grid layout */
+            display: block;
+        }
+        .image-card:hover img {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
 
-    /* Masonry-style grid using CSS columns */
-    .gallery {
-      column-gap: 0;
-      width: 100%;
-    }
-
-    /* Default desktop: 4 columns */
-    .gallery {
-      columns: 4;
-    }
-
-    /* Tablet */
-    @media (max-width: 1200px) {
-      .gallery {
-        columns: 3;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .gallery {
-        columns: 2;
-      }
-    }
-
-    /* Mobile: 1 column */
-    @media (max-width: 600px) {
-      .gallery {
-        columns: 1;
-      }
-    }
-
-    .gallery img {
-      width: 100%;
-      margin: 0;
-      display: block;
-      break-inside: avoid;
-    }
-
-    header {
-      padding: 20px;
-      text-align: center;
-      font-size: 24px;
-      letter-spacing: 1px;
-    }
-  </style>
+        /* Lightbox specific styles */
+        .lightbox-visible {
+            display: flex !important;
+        }
+    </style>
 </head>
-<body>
-  <header>My Photography</header>
+<body class="bg-primary-dark text-white font-sans min-h-screen no-scrollbar">
 
-  <div class="gallery">
-    <img src="https://source.unsplash.com/random/800x1200?nature" />
-    <img src="https://source.unsplash.com/random/900x900?city" />
-    <img src="https://source.unsplash.com/random/800x1000?portrait" />
-    <img src="https://source.unsplash.com/random/700x900?travel" />
-    <img src="https://source.unsplash.com/random/1000x1400?street" />
-    <img src="https://source.unsplash.com/random/900x1600?landscape" />
-    <img src="https://source.unsplash.com/random/800x800?people" />
-    <img src="https://source.unsplash.com/random/700x1100?film" />
-    <img src="https://source.unsplash.com/random/900x1300?architecture" />
-  </div>
+    <!-- Header/Logo Area (Static Image Banner) -->
+    <header class="bg-primary-dark border-b border-secondary-dark/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Banner image replacing the original navbar -->
+            <img 
+                src="https://placehold.co/1200x150/1c1917/d4ac0d?text=JOAO+FRANCO+PHOTOGRAPHY" 
+                alt="João Franco Photography Portfolio Banner" 
+                class="w-full object-cover h-24 sm:h-32"
+            >
+        </div>
+    </header>
+
+    <!-- Main Content Area / Photo Grid -->
+    <main id="portfolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-4xl font-bold mb-8 text-center sm:text-left">Selected Works</h2>
+
+        <!-- The Responsive Grid Container -->
+        <div id="photo-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-min">
+
+            <!-- Card 1: Standard (onclick added, no rounded-lg, no shadow-xl, no text) -->
+            <div class="image-card overflow-hidden col-span-1 cursor-pointer" onclick="openLightbox(0)">
+                <img src="https://placehold.co/800x600/292524/ffffff" alt="Cityscape at night" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 2: Tall -->
+            <div class="image-card overflow-hidden col-span-1 row-span-2 md:row-span-2 cursor-pointer" onclick="openLightbox(1)">
+                <img src="https://placehold.co/800x1200/4c4c4c/ffffff" alt="Vertical portrait photo" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 3: Wide -->
+            <div class="image-card overflow-hidden col-span-1 md:col-span-2 cursor-pointer" onclick="openLightbox(2)">
+                <img src="https://placehold.co/1200x600/3d3d3d/ffffff" alt="Wide landscape shot" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 4: Standard -->
+            <div class="image-card overflow-hidden col-span-1 cursor-pointer" onclick="openLightbox(3)">
+                <img src="https://placehold.co/800x600/696969/ffffff" alt="Forest or nature scene" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 5: Large Square (Spans 2x2 on larger screens) -->
+            <div class="image-card overflow-hidden col-span-1 sm:col-span-2 row-span-1 sm:row-span-2 cursor-pointer" onclick="openLightbox(4)">
+                <img src="https://placehold.co/1200x1200/1e293b/ffffff" alt="Large conceptual photography" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 6: Standard -->
+            <div class="image-card overflow-hidden col-span-1 cursor-pointer" onclick="openLightbox(5)">
+                <img src="https://placehold.co/800x600/38bdf8/0f172a" alt="Photo with dominant blue tones" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 7: Tall (Only on md+) -->
+            <div class="image-card overflow-hidden col-span-1 md:row-span-2 hidden md:block cursor-pointer" onclick="openLightbox(6)">
+                <img src="https://placehold.co/600x1000/a8a29e/ffffff" alt="Abstract photo with lines" loading="lazy" class="w-full h-full object-cover">
+            </div>
+            
+            <!-- Card 8: Standard -->
+            <div class="image-card overflow-hidden col-span-1 cursor-pointer" onclick="openLightbox(7)">
+                <img src="https://placehold.co/800x600/a5b4fc/1e293b" alt="Desert sunset photograph" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 9: Wide (Small screen fit) -->
+            <div class="image-card overflow-hidden col-span-1 md:col-span-2 cursor-pointer" onclick="openLightbox(8)">
+                <img src="https://placehold.co/1200x400/7c3aed/ffffff" alt="Close-up of building architecture" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 10: Standard -->
+            <div class="image-card overflow-hidden col-span-1 cursor-pointer" onclick="openLightbox(9)">
+                <img src="https://placehold.co/800x600/fcd34d/1e293b" alt="Photo taken during golden hour" loading="lazy" class="w-full h-full object-cover">
+            </div>
+            
+            <!-- Card 11: Wide and Short (Spans 2 columns) -->
+            <div class="image-card overflow-hidden col-span-1 md:col-span-2 cursor-pointer" onclick="openLightbox(10)">
+                <img src="https://placehold.co/1200x500/22c55e/ffffff" alt="Vibrant green nature photo" loading="lazy" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Card 12: Standard -->
+            <div class="image-card overflow-hidden col-span-1 cursor-pointer" onclick="openLightbox(11)">
+                <img src="https://placehold.co/800x600/f87171/ffffff" alt="Photo with a prominent red object" loading="lazy" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer/Contact Section (About link removed since navbar links were removed) -->
+    <footer id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-secondary-dark mt-12 text-center">
+        <h3 class="text-2xl font-semibold mb-4 text-accent-gold">Get in Touch</h3>
+        <p class="text-sm text-gray-400">
+            For commissions, prints, or collaborations, please email me at: <a href="mailto:joao.franco.photo@example.com" class="text-accent-gold hover:text-white transition-colors">joao.franco.photo@example.com</a>
+        </p>
+        <div class="mt-4 text-xs text-gray-500">
+            &copy; 2024 João Franco Photography. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal Structure -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 items-center justify-center hidden"> 
+        <!-- Container for the image and controls, prevents closing when clicking controls -->
+        <div class="relative w-full h-full max-w-7xl max-h-screen p-4 flex items-center justify-center" 
+             onclick="event.stopPropagation()">
+            
+            <!-- Close Button - Added ID and removed inline onclick. Handler added in JS. -->
+            <button id="close-button" class="absolute top-4 right-4 text-white text-3xl p-2 z-10 hover:text-accent-gold transition-colors">
+                &times;
+            </button>
+            
+            <!-- Previous Button -->
+            <button class="absolute left-4 p-4 text-white text-4xl z-10 opacity-70 hover:opacity-100 transition-opacity" 
+                    onclick="prevImage()">
+                &#10094; <!-- Left Arrow -->
+            </button>
+            
+            <!-- Image Display -->
+            <img id="lightbox-img" src="" alt="Slideshow Image" 
+                 class="max-w-full max-h-full object-contain">
+            
+            <!-- Next Button -->
+            <button class="absolute right-4 p-4 text-white text-4xl z-10 opacity-70 hover:opacity-100 transition-opacity" 
+                    onclick="nextImage()">
+                &#10095; <!-- Right Arrow -->
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript for Lightbox functionality -->
+    <script>
+        // Array of all image sources used in the grid
+        const imageSources = [
+            "https://placehold.co/800x600/292524/ffffff",
+            "https://placehold.co/800x1200/4c4c4c/ffffff",
+            "https://placehold.co/1200x600/3d3d3d/ffffff",
+            "https://placehold.co/800x600/696969/ffffff",
+            "https://placehold.co/1200x1200/1e293b/ffffff",
+            "https://placehold.co/800x600/38bdf8/0f172a",
+            "https://placehold.co/600x1000/a8a29e/ffffff",
+            "https://placehold.co/800x600/a5b4fc/1e293b",
+            "https://placehold.co/1200x400/7c3aed/ffffff",
+            "https://placehold.co/800x600/fcd34d/1e293b",
+            "https://placehold.co/1200x500/22c55e/ffffff",
+            "https://placehold.co/800x600/f87171/ffffff"
+        ];
+
+        let currentImageIndex = 0;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeButton = document.getElementById('close-button'); 
+        
+        // Simple function to close the modal
+        function closeLightbox() {
+            lightbox.classList.remove('lightbox-visible');
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore body scrolling
+        }
+
+
+        /**
+         * Updates the image displayed in the lightbox modal.
+         */
+        function updateLightboxImage() {
+            // Ensure the index wraps around
+            if (currentImageIndex < 0) {
+                currentImageIndex = imageSources.length - 1;
+            } else if (currentImageIndex >= imageSources.length) {
+                currentImageIndex = 0;
+            }
+
+            lightboxImg.src = imageSources[currentImageIndex];
+        }
+
+        /**
+         * Opens the lightbox modal to a specific image index.
+         * @param {number} index - The index of the image to start the slideshow with.
+         */
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('lightbox-visible');
+            lightbox.classList.remove('hidden');
+            // Disable body scrolling when lightbox is open
+            document.body.style.overflow = 'hidden';
+        }
+
+        /**
+         * Moves to the previous image in the slideshow.
+         */
+        function prevImage() {
+            currentImageIndex--;
+            updateLightboxImage();
+        }
+
+        /**
+         * Moves to the next image in the slideshow.
+         */
+        function nextImage() {
+            currentImageIndex++;
+            updateLightboxImage();
+        }
+
+        // Event listeners added via JavaScript for cleaner separation and reliable closing
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Close when clicking the close button
+            if (closeButton) {
+                closeButton.addEventListener('click', closeLightbox);
+            }
+
+            // 2. Close when clicking the dark background (event delegation on the lightbox itself)
+            if (lightbox) {
+                lightbox.addEventListener('click', (event) => {
+                    // Only close if the exact element clicked is the lightbox div (the background)
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+        });
+
+        // Keyboard navigation support (optional but nice for a slideshow)
+        document.addEventListener('keydown', function(event) {
+            if (lightbox.classList.contains('lightbox-visible')) {
+                if (event.key === 'ArrowLeft') {
+                    prevImage();
+                } else if (event.key === 'ArrowRight') {
+                    nextImage();
+                } else if (event.key === 'Escape') {
+                    closeLightbox();
+                }
+            }
+        });
+
+    </script>
 </body>
 </html>
