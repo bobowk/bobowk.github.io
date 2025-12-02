@@ -3,217 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Photo Grid Portfolio</title>
-    <!-- Load Tailwind CSS -->
+    <title>Shots by Bobowk</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
     <style>
-        /* Custom Tailwind Configuration */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'primary-dark': '#1c1917', /* Near-black */
-                        'secondary-dark': '#292524', /* Dark gray-brown */
-                        'accent-gold': '#d4ac0d',
-                    }
-                }
-            }
+        * {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
-        /* Hide scrollbar for aesthetic purposes, while allowing scrolling */
+        
+        img {
+            pointer-events: none;
+            -webkit-user-drag: none;
+            -khtml-user-drag: none;
+            -moz-user-drag: none;
+            -o-user-drag: none;
+            user-drag: none;
+        }
+        
+        a {
+            -webkit-user-select: auto;
+            -khtml-user-select: auto;
+            -moz-user-select: auto;
+            -ms-user-select: auto;
+            user-select: auto;
+            pointer-events: auto;
+        }
+        
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-        /* Simple hover effect for images */
-        .image-card img {
-            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-            display: block;
+        
+        body {
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
-        .image-card:hover img {
-            transform: scale(1.02);
-            opacity: 0.9;
+        
+        /* Dark theme (default) */
+        body.dark-theme {
+            background-color: #1c1917 !important;
+            color: #ffffff !important;
+        }
+        
+        body.dark-theme h2,
+        body.dark-theme h3 {
+            color: #ffffff !important;
+        }
+        
+        body.dark-theme footer {
+            border-color: #292524 !important;
+        }
+        
+        body.dark-theme #lightbox {
+            background-color: rgba(0, 0, 0, 0.95) !important;
+        }
+        
+        body.dark-theme #lightbox button {
+            color: #ffffff !important;
+        }
+        
+        /* Light theme */
+        body.light-theme {
+            background-color: #f5f5f4 !important;
+            color: #1c1917 !important;
+        }
+        
+        body.light-theme h2,
+        body.light-theme h3 {
+            color: #1c1917 !important;
+        }
+        
+        body.light-theme footer {
+            border-color: #e7e5e4 !important;
+        }
+        
+        body.light-theme .text-gray-400 {
+            color: #78716c !important;
+        }
+        
+        body.light-theme .text-gray-500 {
+            color: #57534e !important;
+        }
+        
+        body.light-theme #lightbox {
+            background-color: rgba(245, 245, 244, 0.95) !important;
+        }
+        
+        body.light-theme #lightbox button {
+            color: #1c1917 !important;
+        }
+        
+        body.light-theme #lightbox button:hover {
+            color: #d4ac0d !important;
+        }
+        
+        #photo-grid {
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+        
+        #photo-grid a {
+            cursor: pointer;
+        }
+        
+        #photo-grid img {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        #photo-grid a:hover img {
+            opacity: 0.85;
         }
 
-        /* Lightbox specific styles */
         .lightbox-visible {
             display: flex !important;
         }
+        
+        /* Logo inversion for dark mode */
+        body.dark-theme #logo-img {
+            filter: invert(1);
+        }
+        
+        body.light-theme #logo-img {
+            filter: invert(0);
+        }
     </style>
 </head>
-<body class="bg-primary-dark text-white font-sans min-h-screen no-scrollbar">
+<body class="dark-theme font-sans min-h-screen no-scrollbar">
 
-    <!-- Header/Logo Area (Static Image Banner) -->
     <header>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <img 
-                src="photography/shotbybobowk.png" 
-                alt="shot by bobowk logo" 
-                style="width:300px"
-            >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-4">
+            <div class="flex items-center justify-between">
+                <img 
+                    id="logo-img"
+                    src="photography/shotbybobowk.png" 
+                    alt="shot by bobowk logo" 
+                    style="width:300px; transition: filter 0.3s ease;"
+                    oncontextmenu="return false;"
+                >
+                <img 
+                    src="resources/1763347096003.jpeg" 
+                    alt="Profile picture" 
+                    class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full object-cover shadow-md"
+                    oncontextmenu="return false;"
+                >
+            </div>
         </div>
     </header>
 
-    <!-- Main Content Area / Photo Grid -->
-    <main id="portfolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h2 class="text-4xl font-bold mb-8 text-center sm:text-left">Selected Works</h2>
-
-        <!-- The Responsive Grid Container -->
-       <div id="photo-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-min"></div>
-
+    <main id="portfolio" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+        <div id="photo-grid"></div>
     </main>
     
-    <!-- Footer/Contact Section (About link removed since navbar links were removed) -->
-    <footer id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-secondary-dark mt-12 text-center">
-        <h3 class="text-2xl font-semibold mb-4 text-accent-gold">Get in Touch</h3>
-        <p class="text-sm text-gray-400">
-            For commissions, prints, or collaborations, please email me at: <a href="mailto:joao.franco.photo@example.com" class="text-accent-gold hover:text-white transition-colors">joao.franco.photo@example.com</a>
-        </p>
-        <div class="mt-4 text-xs text-gray-500">
-            &copy; 2024 João Franco Photography. All rights reserved.
+    <!-- Theme Toggle Button (Fixed Position) -->
+    <button id="theme-toggle" class="fixed bottom-8 right-8 w-14 h-14 rounded-full shadow-lg transition-all duration-300 flex items-center justify-center z-40 hover:scale-110" style="background-color: #292524;">
+        <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #d4ac0d;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+        </svg>
+        <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: #d4ac0d;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+        </svg>
+    </button>
+
+    <footer id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t mt-12 text-center" style="border-color: #292524">
+        <h3 class="text-3xl mb-6" style="font-weight:bold">Get in touch with me</h3>
+        <p class="text-sm text-gray-400 mb-6">For enquiries or collaborations,</p>
+        <a href="mailto:me@bobowk.me" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+            Contact Me
+        </a>
+        <div class="mt-8 text-xs text-gray-500">
+            &copy; <span id="copyright-year"></span> Brandon Cheng Woolcock. All rights reserved.
         </div>
     </footer>
 
-    <!-- Lightbox Modal Structure -->
-    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 items-center justify-center hidden"> 
-        <!-- Container for the image and controls, prevents closing when clicking controls -->
-        <div class="relative w-full h-full max-w-7xl max-h-screen p-4 flex items-center justify-center" 
-             onclick="event.stopPropagation()">
-            
-            <!-- Close Button - Added ID and removed inline onclick. Handler added in JS. -->
-            <button id="close-button" class="absolute top-4 right-4 text-white text-3xl p-2 z-10 hover:text-accent-gold transition-colors">
+    <div id="lightbox" class="fixed inset-0 z-50 items-center justify-center hidden" style="background-color: rgba(0, 0, 0, 0.95);"> 
+        <div class="relative w-full h-full max-w-7xl max-h-screen p-4 flex items-center justify-center">
+            <button id="close-button" class="absolute top-4 right-4 text-3xl p-2 z-10 transition-colors" style="color: #ffffff;">
                 &times;
             </button>
-            
-            <!-- Previous Button -->
-            <button class="absolute left-4 p-4 text-white text-4xl z-10 opacity-70 hover:opacity-100 transition-opacity" 
-                    onclick="prevImage()">
-                &#10094; <!-- Left Arrow -->
+            <button id="prev-button" class="absolute left-4 p-4 text-4xl z-10 opacity-70 hover:opacity-100 transition-opacity" style="color: #ffffff;">
+                &#10094;
             </button>
-            
-            <!-- Image Display -->
-            <img id="lightbox-img" src="" alt="Slideshow Image" 
-                 class="max-w-full max-h-full object-contain">
-            
-            <!-- Next Button -->
-            <button class="absolute right-4 p-4 text-white text-4xl z-10 opacity-70 hover:opacity-100 transition-opacity" 
-                    onclick="nextImage()">
-                &#10095; <!-- Right Arrow -->
+            <img id="lightbox-img" src="" alt="Slideshow Image" class="max-w-full max-h-full object-contain" oncontextmenu="return false;">
+            <button id="next-button" class="absolute right-4 p-4 text-4xl z-10 opacity-70 hover:opacity-100 transition-opacity" style="color: #ffffff;">
+                &#10095;
             </button>
         </div>
     </div>
 
-    <!-- JavaScript for Lightbox functionality -->
-  <script>
-    // Array of all image sources (your lightbox sources)
-    const imageSources = [
-        "photography/IMG_7444-3.jpg",
-        "https://placehold.co/800x1200/4c4c4c/ffffff",
-        "photography/IMG_7458-4.jpg",
-        "https://placehold.co/800x600/696969/ffffff",
-        "https://placehold.co/1200x1200/1e293b/ffffff",
-        "https://placehold.co/800x600/38bdf8/0f172a",
-        "https://placehold.co/600x1000/a8a29e/ffffff",
-        "https://placehold.co/800x600/a5b4fc/1e293b",
-        "https://placehold.co/1200x400/7c3aed/ffffff",
-        "https://placehold.co/800x600/fcd34d/1e293b",
-        "https://placehold.co/1200x500/22c55e/ffffff",
-        "https://placehold.co/800x600/f87171/ffffff"
-    ];
-
-    // Optional: Add layout classes to match your existing special spans
-    const layoutClasses = [
-        "col-span-1",                      // 0
-        "col-span-1 row-span-2 md:row-span-2", // 1
-        "col-span-1 md:col-span-2",        // 2
-        "col-span-1",                      // 3
-        "col-span-1 sm:col-span-2 sm:row-span-2", // 4
-        "col-span-1",                      // 5
-        "col-span-1 md:row-span-2 hidden md:block", // 6
-        "col-span-1",                      // 7
-        "col-span-1 md:col-span-2",        // 8
-        "col-span-1",                      // 9
-        "col-span-1 md:col-span-2",        // 10
-        "col-span-1"                       // 11
-    ];
-
-    // Build the grid automatically
-    const grid = document.getElementById('photo-grid');
-
-    imageSources.forEach((src, i) => {
-        const card = document.createElement("div");
-        card.className = `image-card overflow-hidden cursor-pointer ${layoutClasses[i] || "col-span-1"}`;
-        card.onclick = () => openLightbox(i);
-
-        const img = document.createElement("img");
-        img.src = src;
-        img.loading = "lazy";
-        img.className = "w-full h-full object-cover";
-
-        card.appendChild(img);
-        grid.appendChild(card);
-    });
-
-    let currentImageIndex = 0;
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const closeButton = document.getElementById('close-button'); 
-
-    function closeLightbox() {
-        lightbox.classList.remove('lightbox-visible');
-        lightbox.classList.add('hidden');
-        document.body.style.overflow = '';
-    }
-
-    function updateLightboxImage() {
-        if (currentImageIndex < 0) currentImageIndex = imageSources.length - 1;
-        if (currentImageIndex >= imageSources.length) currentImageIndex = 0;
-
-        lightboxImg.src = imageSources[currentImageIndex];
-    }
-
-    function openLightbox(index) {
-        currentImageIndex = index;
-        updateLightboxImage();
-        lightbox.classList.add('lightbox-visible');
-        lightbox.classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function prevImage() {
-        currentImageIndex--;
-        updateLightboxImage();
-    }
-
-    function nextImage() {
-        currentImageIndex++;
-        updateLightboxImage();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        if (closeButton) closeButton.addEventListener('click', closeLightbox);
-
-        if (lightbox) {
-            lightbox.addEventListener('click', (event) => {
-                if (event.target === lightbox) closeLightbox();
-            });
+    <script>
+        // Set copyright year
+        document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        
+        // THEME SYSTEM
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        let currentTheme = 'dark';
+        
+        function setTheme(theme) {
+            currentTheme = theme;
+            if (theme === 'light') {
+                document.body.classList.remove('dark-theme');
+                document.body.classList.add('light-theme');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                themeToggle.style.backgroundColor = '#e7e5e4';
+            } else {
+                document.body.classList.remove('light-theme');
+                document.body.classList.add('dark-theme');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                themeToggle.style.backgroundColor = '#292524';
+            }
+            // Save preference
+            localStorage.setItem('theme', theme);
         }
-    });
-
-    document.addEventListener('keydown', function(event) {
-        if (lightbox.classList.contains('lightbox-visible')) {
-            if (event.key === 'ArrowLeft') prevImage();
-            if (event.key === 'ArrowRight') nextImage();
-            if (event.key === 'Escape') closeLightbox();
+        
+        // Check for saved theme preference or use time-based default
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            const hour = new Date().getHours();
+            if (hour >= 6 && hour < 18) {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
         }
-    });
-</script>
+        
+        // Toggle theme on click
+        themeToggle.addEventListener('click', function() {
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+        
+        // PREVENT RIGHT-CLICK
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true);
+        
+        document.addEventListener('dragstart', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        document.oncontextmenu = function() {
+            return false;
+        };
+        
+        // GALLERY
+        const imageSources = [
+            "photography/IMG_7444-3.jpg",
+            "photography/IMG_2889.jpg",
+            "photography/IMG_7458-4.jpg",
+            "photography/IMG_5433.JPG",
+            "photography/587645606_17973699206959085_6344913867511154208_n.jpg",
+            "photography/portrait_photo_girl.png",
+            "photography/degraded_house.png",
+            "photography/540342325_17964339293959085_136138654296582256_n.jpg",
+            "photography/539204950_17964339323959085_6054545635341674399_n.jpg",
+            "photography/IMG_0034.jpeg",
+            "photography/539395418_17964339311959085_4336751361535375366_n.jpg",
+            "photography/539366013_17964339278959085_5131946121602055703_n.jpg",
+            "photography/IMG_0735-1 2.JPG",
+            "photography/IMG_7387-2.jpg",
+            "photography/mornington_beach_houses.png",
+            "photography/IMG_7541-17.jpg",
+            "photography/IMG_5712.JPG",
+            "photography/586687762_17973697685959085_3282456657348201759_n.jpg",
+
+        ];
+
+        const grid = $('#photo-grid');
+        let currentImageIndex = 0;
+
+        imageSources.forEach((src, i) => {
+            grid.append(`
+                <a href="${src}" data-index="${i}">
+                    <img alt="Portfolio image ${i + 1}" src="${src}" oncontextmenu="return false;" ondragstart="return false;" />
+                </a>
+            `);
+        });
+
+        grid.justifiedGallery({
+            rowHeight: 320,
+            maxRowHeight: 450,
+            margins: 8,
+            lastRow: 'justify',
+            captions: false,
+            cssAnimation: true
+        });
+
+        grid.on('click', 'a', function(e) {
+            e.preventDefault();
+            const index = parseInt($(this).data('index'));
+            openLightbox(index);
+        });
+
+        // LIGHTBOX
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const closeButton = document.getElementById('close-button');
+        const prevButton = document.getElementById('prev-button');
+        const nextButton = document.getElementById('next-button');
+
+        function closeLightbox() {
+            lightbox.classList.remove('lightbox-visible');
+            lightbox.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightboxImage() {
+            if (currentImageIndex < 0) currentImageIndex = imageSources.length - 1;
+            if (currentImageIndex >= imageSources.length) currentImageIndex = 0;
+            lightboxImg.src = imageSources[currentImageIndex];
+        }
+
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('lightbox-visible');
+            lightbox.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function prevImage() {
+            currentImageIndex--;
+            updateLightboxImage();
+        }
+
+        function nextImage() {
+            currentImageIndex++;
+            updateLightboxImage();
+        }
+
+        closeButton.addEventListener('click', closeLightbox);
+        prevButton.addEventListener('click', prevImage);
+        nextButton.addEventListener('click', nextImage);
+        
+        lightbox.addEventListener('click', function(event) {
+            if (event.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (lightbox.classList.contains('lightbox-visible')) {
+                if (event.key === 'ArrowLeft') prevImage();
+                if (event.key === 'ArrowRight') nextImage();
+                if (event.key === 'Escape') closeLightbox();
+            }
+        });
+    </script>
 
 </body>
 </html>
