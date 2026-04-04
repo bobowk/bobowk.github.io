@@ -369,24 +369,6 @@
     text-transform: uppercase;
   }
 
-  /* ── bunny stage ── */
-  .bunny-stage {
-    width: 100%;
-    max-width: 420px;
-    height: 90px;
-    position: relative;
-    margin-bottom: 1.25rem;
-    overflow: hidden;
-  }
-  .bunny {
-    position: absolute;
-    bottom: 4px;
-    font-size: 2.2rem;
-    line-height: 1;
-    will-change: transform, left;
-    filter: drop-shadow(0 4px 6px rgba(232,82,122,0.18));
-  }
-
   /* ── clue card ── */
   .clue-card {
     width: 100%;
@@ -615,10 +597,6 @@
     <div class="progress-label" id="progressLabel"></div>
   </div>
 
-  <div class="bunny-stage" id="bunnyStage">
-    <div class="bunny" id="bunny">🐰</div>
-  </div>
-
   <div class="clue-card" id="clueCard">
     <div class="clue-badge" id="clueNum"></div>
     <span class="clue-emoji" id="clueEmoji"></span>
@@ -642,12 +620,12 @@
 const clues = [
   {
     emoji: "🪥",
-    text: "Behind the mirror where mornings begin,\nwhere toothpaste and secrets are carefully kept in.\nLook where you reach for things small and neat —\nyour first egg is waiting somewhere to meet.",
+    text: "Behind the mirror where mornings begin,\nwhere sunscreen and deodorant are carefully kept in.\nYour first egg is waiting somewhere to meet.",
     location: "Bathroom cabinet"
   },
   {
     emoji: "🌀",
-    text: "It spins and it tumbles, it's warm to the touch,\nclothes go in wet and come out — pretty much.\nPeek where the heat hides, where socks go to dry.\nYour egg is inside — no need to ask why.",
+    text: "It spins and it tumbles, it's warm to the touch,\nclothes go in wet and come out dry.\nPeek where the heat hides, where socks go to dry.\nYour egg is inside — no need to ask why.",
     location: "Dryer"
   },
   {
@@ -684,8 +662,6 @@ const clues = [
 
 let current = 0;
 let maxReached = 0;
-let bunnyX = 0;
-let bunnyAnim = null;
 
 /* floating background eggs */
 (function spawnDecoEggs() {
@@ -739,49 +715,6 @@ function showClue(index, direction) {
 
   document.getElementById('backBtn').disabled = index === 0;
   buildProgress();
-  if (direction !== undefined) hopBunny(direction, null);
-}
-
-function hopBunny(direction, onDone) {
-  const stage = document.getElementById('bunnyStage');
-  const bunny = document.getElementById('bunny');
-  const stageW = stage.offsetWidth || 340;
-  const pad = 16;
-
-  let endX;
-  if (direction === 1) {
-    endX = Math.min(bunnyX + 70 + Math.random() * 80, stageW - pad - 36);
-  } else if (direction === -1) {
-    endX = Math.max(bunnyX - 70 - Math.random() * 80, pad);
-  } else {
-    endX = pad + Math.random() * (stageW - pad * 2 - 36);
-  }
-
-  const startX = bunnyX;
-  const dist = Math.abs(endX - startX);
-  const hops = Math.max(3, Math.floor(dist / 55));
-  const hopDir = endX >= startX ? 1 : -1;
-  let hop = 0;
-  const interval = 900 / hops;
-
-  if (bunnyAnim) clearInterval(bunnyAnim);
-  bunny.style.transform = hopDir < 0 ? 'scaleX(-1)' : 'scaleX(1)';
-
-  bunnyAnim = setInterval(function() {
-    const progress = hop / hops;
-    const x = startX + (endX - startX) * progress;
-    const bounce = Math.abs(Math.sin(hop * Math.PI)) * 26;
-    bunny.style.left = x + 'px';
-    const flip = hopDir < 0 ? 'scaleX(-1) ' : '';
-    bunny.style.transform = flip + 'translateY(-' + bounce + 'px)';
-    hop++;
-    if (hop > hops) {
-      clearInterval(bunnyAnim);
-      bunny.style.transform = hopDir < 0 ? 'scaleX(-1)' : 'scaleX(1)';
-      bunnyX = endX;
-      if (onDone) onDone();
-    }
-  }, interval);
 }
 
 document.getElementById('foundBtn').addEventListener('click', function() {
@@ -793,20 +726,17 @@ document.getElementById('foundBtn').addEventListener('click', function() {
 
   this.disabled = true;
 
-  hopBunny(1, function() {
-    setTimeout(function() {
-      document.getElementById('foundBtn').disabled = false;
-      current++;
-      if (current >= clues.length) {
-        document.getElementById('clueCard').style.display = 'none';
-        document.getElementById('completeCard').style.display = 'block';
-        buildProgress();
-        hopBunny(0, function() { hopBunny(0, function() { hopBunny(0, null); }); });
-      } else {
-        showClue(current, 1);
-      }
-    }, 260);
-  });
+  setTimeout(function() {
+    document.getElementById('foundBtn').disabled = false;
+    current++;
+    if (current >= clues.length) {
+      document.getElementById('clueCard').style.display = 'none';
+      document.getElementById('completeCard').style.display = 'block';
+      buildProgress();
+    } else {
+      showClue(current, 1);
+    }
+  }, 260);
 });
 
 document.getElementById('backBtn').addEventListener('click', function() {
@@ -821,14 +751,9 @@ document.getElementById('restartBtn').addEventListener('click', function() {
   document.getElementById('completeCard').style.display = 'none';
   document.getElementById('clueCard').style.display = 'block';
   showClue(0, undefined);
-  hopBunny(0, null);
 });
 
-/* init */
 window.addEventListener('load', function() {
-  const stage = document.getElementById('bunnyStage');
-  bunnyX = (stage.offsetWidth || 340) / 2 - 18;
-  document.getElementById('bunny').style.left = bunnyX + 'px';
   showClue(0, undefined);
 });
 </script>
