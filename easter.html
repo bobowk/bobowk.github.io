@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -253,4 +253,586 @@
     updateClue();
   </script>
 </body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐣 Easter Egg Hunt</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pink: #e8527a;
+    --pink-light: #f9d0dc;
+    --pink-pale: #fef0f4;
+    --lilac: #c084fc;
+    --lilac-light: #ede9fe;
+    --yellow: #fbbf24;
+    --yellow-light: #fef9c3;
+    --mint: #34d399;
+    --mint-light: #d1fae5;
+    --bg: #fffaf9;
+    --card: #ffffff;
+    --text: #2d1a20;
+    --text-muted: #9d6e7a;
+    --border: #f3d5dc;
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  html, body {
+    min-height: 100%;
+    background: var(--bg);
+    font-family: 'Nunito', sans-serif;
+    color: var(--text);
+  }
+
+  body {
+    background-image:
+      radial-gradient(circle at 15% 20%, #fce4ec55 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, #ede9fe55 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, #fef9c355 0%, transparent 60%);
+    background-attachment: fixed;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 3rem;
+  }
+
+  /* ── header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+    animation: fadeDown 0.6s ease both;
+  }
+  .header-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 0.4rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .header h1 {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 800;
+    color: var(--pink);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .header p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 0.35rem;
+    font-family: 'Lora', serif;
+    font-style: italic;
+  }
+
+  /* ── progress ── */
+  .progress-wrap {
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 1.5rem;
+    animation: fadeDown 0.6s 0.1s ease both;
+  }
+  .progress-row {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
+  .pip {
+    flex: 1;
+    max-width: 44px;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--border);
+    transition: background 0.4s ease, transform 0.2s ease;
+  }
+  .pip.done { background: var(--pink); }
+  .pip.active { background: var(--pink-light); transform: scaleY(1.4); }
+  .progress-label {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── bunny stage ── */
+  .bunny-stage {
+    width: 100%;
+    max-width: 420px;
+    height: 90px;
+    position: relative;
+    margin-bottom: 1.25rem;
+    overflow: hidden;
+  }
+  .bunny {
+    position: absolute;
+    bottom: 4px;
+    font-size: 2.2rem;
+    line-height: 1;
+    will-change: transform, left;
+    filter: drop-shadow(0 4px 6px rgba(232,82,122,0.18));
+  }
+
+  /* ── clue card ── */
+  .clue-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(232, 82, 122, 0.08), 0 2px 8px rgba(0,0,0,0.04);
+    animation: fadeUp 0.5s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+  .clue-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink), var(--lilac), var(--yellow));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+
+  .clue-badge {
+    display: inline-block;
+    background: var(--pink-pale);
+    color: var(--pink);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--pink-light);
+  }
+
+  .clue-emoji {
+    font-size: 2.8rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  }
+
+  .clue-text {
+    font-family: 'Lora', serif;
+    font-size: clamp(0.95rem, 3vw, 1.05rem);
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    white-space: pre-line;
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 11px 22px;
+    border-radius: var(--radius-sm);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    border: none;
+    outline: none;
+    min-width: 90px;
+  }
+  .btn:active { transform: scale(0.96); }
+  .btn:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+  .btn-back {
+    background: white;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+  }
+  .btn-back:hover:not(:disabled) {
+    background: var(--pink-pale);
+    border-color: var(--pink-light);
+    color: var(--pink);
+  }
+
+  .btn-found {
+    background: var(--pink);
+    color: white;
+    box-shadow: 0 4px 14px rgba(232, 82, 122, 0.35);
+  }
+  .btn-found:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(232, 82, 122, 0.45);
+    transform: translateY(-1px);
+  }
+
+  .reveal-msg {
+    margin-top: 1rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--mint);
+    min-height: 18px;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .reveal-msg.show { opacity: 1; }
+
+  /* ── complete card ── */
+  .complete-card {
+    display: none;
+    width: 100%;
+    max-width: 420px;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(232, 82, 122, 0.1);
+    animation: fadeUp 0.6s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+  .complete-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--mint), var(--yellow), var(--pink), var(--lilac));
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .confetti-row {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    letter-spacing: 4px;
+  }
+  .complete-card h2 {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: var(--pink);
+    margin-bottom: 0.5rem;
+  }
+  .complete-card p {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .btn-restart {
+    margin-top: 1.5rem;
+    background: white;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    padding: 9px 22px;
+    border-radius: var(--radius-sm);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-restart:hover {
+    background: var(--pink-pale);
+    border-color: var(--pink-light);
+    color: var(--pink);
+  }
+
+  /* ── decorative eggs ── */
+  .deco-eggs {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    inset: 0;
+    overflow: hidden;
+  }
+  .deco-egg {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.18;
+    animation: floatEgg linear infinite;
+  }
+
+  @keyframes floatEgg {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.18; }
+    90% { opacity: 0.18; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* mobile fine-tune */
+  @media (max-width: 380px) {
+    .clue-card { padding: 1.4rem 1.1rem; }
+    .btn { padding: 10px 16px; font-size: 0.88rem; }
+    .clue-text { font-size: 0.92rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deco-eggs" id="decoEggs"></div>
+
+<div class="page">
+  <header class="header">
+    <span class="header-icon">🐣</span>
+    <h1>Easter Egg Hunt</h1>
+    <p>Follow the riddles to find all 8 eggs</p>
+  </header>
+
+  <div class="progress-wrap">
+    <div class="progress-row" id="progress"></div>
+    <div class="progress-label" id="progressLabel"></div>
+  </div>
+
+  <div class="bunny-stage" id="bunnyStage">
+    <div class="bunny" id="bunny">🐰</div>
+  </div>
+
+  <div class="clue-card" id="clueCard">
+    <div class="clue-badge" id="clueNum"></div>
+    <span class="clue-emoji" id="clueEmoji"></span>
+    <div class="clue-text" id="clueText"></div>
+    <div class="btn-row">
+      <button class="btn btn-back" id="backBtn">← Back</button>
+      <button class="btn btn-found" id="foundBtn">Found it! 🥚</button>
+    </div>
+    <div class="reveal-msg" id="revealMsg"></div>
+  </div>
+
+  <div class="complete-card" id="completeCard">
+    <span class="confetti-row">🎊🥚🌸</span>
+    <h2>You did it!</h2>
+    <p>Every egg has been found.<br>Hope the hunt was worth it — happy Easter! 🐰</p>
+    <button class="btn-restart" id="restartBtn">↺ Start over</button>
+  </div>
+</div>
+
+<script>
+const clues = [
+  {
+    emoji: "🪥",
+    text: "Behind the mirror where mornings begin,\nwhere toothpaste and secrets are carefully kept in.\nLook where you reach for things small and neat —\nyour first egg is waiting somewhere to meet.",
+    location: "Bathroom cabinet"
+  },
+  {
+    emoji: "🌀",
+    text: "It spins and it tumbles, it's warm to the touch,\nclothes go in wet and come out — pretty much.\nPeek where the heat hides, where socks go to dry.\nYour egg is inside — no need to ask why.",
+    location: "Dryer"
+  },
+  {
+    emoji: "🍽️",
+    text: "Where plates and glasses sleep standing tall,\nbehind the closed doors of the room with them all.\nThe table nearby has seen many a feast —\ncheck every shelf, starting left, then go east.",
+    location: "Dining room cabinet"
+  },
+  {
+    emoji: "🔥",
+    text: "It bakes and it roasts, it does things with heat,\nthe home of the casserole, biscuits, and meat.\nDon't turn it on — just open the door,\nyour egg is waiting right there on the floor.",
+    location: "Oven"
+  },
+  {
+    emoji: "🥁",
+    text: "It's beaten and battered, it's hit with a stick,\nbut never complains — not even a flick.\nWhere rhythm is kept and beats fill the air,\nyour egg is hiding — look under with care.",
+    location: "Drum kit"
+  },
+  {
+    emoji: "👟",
+    text: "Soles and laces all lined in a row,\nwhere your feet get their armour before you go.\nFind your egg here — and while you're about,\npop on your shoes before you head out!",
+    location: "Shoe cabinet"
+  },
+  {
+    emoji: "🚗",
+    text: "Where raindrops land but never stay long,\nwhere wipers dance to a windswept song.\nOutside the house but part of your day —\nyour egg is stuck right in plain display.",
+    location: "Windshield"
+  },
+  {
+    emoji: "🗂️",
+    text: "The last egg hides where grown-ups keep maps,\nreceipts and manuals and similar scraps.\nThe bigger of two in the front of the ride —\nopen it up. Your egg is inside.",
+    location: "Glovebox (the big one)"
+  }
+];
+
+let current = 0;
+let maxReached = 0;
+let bunnyX = 0;
+let bunnyAnim = null;
+
+/* floating background eggs */
+(function spawnDecoEggs() {
+  const stage = document.getElementById('decoEggs');
+  const eggs = ['🥚','🐣','🌸','🌷','🐰'];
+  for (let i = 0; i < 10; i++) {
+    const el = document.createElement('div');
+    el.className = 'deco-egg';
+    el.textContent = eggs[Math.floor(Math.random() * eggs.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.bottom = '-60px';
+    const dur = 14 + Math.random() * 16;
+    const delay = Math.random() * 20;
+    el.style.animation = `floatEgg ${dur}s ${delay}s linear infinite`;
+    stage.appendChild(el);
+  }
+})();
+
+function buildProgress() {
+  const el = document.getElementById('progress');
+  el.innerHTML = '';
+  for (let i = 0; i < clues.length; i++) {
+    const pip = document.createElement('div');
+    pip.className = 'pip' + (i < maxReached ? ' done' : i === current ? ' active' : '');
+    el.appendChild(pip);
+  }
+  document.getElementById('progressLabel').textContent =
+    maxReached + ' of ' + clues.length + ' eggs found';
+}
+
+function showClue(index, direction) {
+  const c = clues[index];
+  document.getElementById('clueNum').textContent = 'Clue ' + (index + 1) + ' of ' + clues.length;
+  document.getElementById('clueEmoji').textContent = c.emoji;
+  document.getElementById('clueText').textContent = c.text;
+
+  const revealMsg = document.getElementById('revealMsg');
+  const foundBtn = document.getElementById('foundBtn');
+
+  if (index < maxReached) {
+    revealMsg.textContent = '✓ Found: ' + c.location;
+    revealMsg.classList.add('show');
+    foundBtn.textContent = 'Found it! 🥚';
+    foundBtn.disabled = false;
+  } else {
+    revealMsg.textContent = '';
+    revealMsg.classList.remove('show');
+    foundBtn.textContent = 'I found it! 🥚';
+    foundBtn.disabled = false;
+  }
+
+  document.getElementById('backBtn').disabled = index === 0;
+  buildProgress();
+  if (direction !== undefined) hopBunny(direction, null);
+}
+
+function hopBunny(direction, onDone) {
+  const stage = document.getElementById('bunnyStage');
+  const bunny = document.getElementById('bunny');
+  const stageW = stage.offsetWidth || 340;
+  const pad = 16;
+
+  let endX;
+  if (direction === 1) {
+    endX = Math.min(bunnyX + 70 + Math.random() * 80, stageW - pad - 36);
+  } else if (direction === -1) {
+    endX = Math.max(bunnyX - 70 - Math.random() * 80, pad);
+  } else {
+    endX = pad + Math.random() * (stageW - pad * 2 - 36);
+  }
+
+  const startX = bunnyX;
+  const dist = Math.abs(endX - startX);
+  const hops = Math.max(3, Math.floor(dist / 55));
+  const hopDir = endX >= startX ? 1 : -1;
+  let hop = 0;
+  const interval = 900 / hops;
+
+  if (bunnyAnim) clearInterval(bunnyAnim);
+  bunny.style.transform = hopDir < 0 ? 'scaleX(-1)' : 'scaleX(1)';
+
+  bunnyAnim = setInterval(function() {
+    const progress = hop / hops;
+    const x = startX + (endX - startX) * progress;
+    const bounce = Math.abs(Math.sin(hop * Math.PI)) * 26;
+    bunny.style.left = x + 'px';
+    const flip = hopDir < 0 ? 'scaleX(-1) ' : '';
+    bunny.style.transform = flip + 'translateY(-' + bounce + 'px)';
+    hop++;
+    if (hop > hops) {
+      clearInterval(bunnyAnim);
+      bunny.style.transform = hopDir < 0 ? 'scaleX(-1)' : 'scaleX(1)';
+      bunnyX = endX;
+      if (onDone) onDone();
+    }
+  }, interval);
+}
+
+document.getElementById('foundBtn').addEventListener('click', function() {
+  if (current >= maxReached) maxReached = current + 1;
+
+  const revealMsg = document.getElementById('revealMsg');
+  revealMsg.textContent = '✓ Found: ' + clues[current].location;
+  revealMsg.classList.add('show');
+
+  this.disabled = true;
+
+  hopBunny(1, function() {
+    setTimeout(function() {
+      document.getElementById('foundBtn').disabled = false;
+      current++;
+      if (current >= clues.length) {
+        document.getElementById('clueCard').style.display = 'none';
+        document.getElementById('completeCard').style.display = 'block';
+        buildProgress();
+        hopBunny(0, function() { hopBunny(0, function() { hopBunny(0, null); }); });
+      } else {
+        showClue(current, 1);
+      }
+    }, 260);
+  });
+});
+
+document.getElementById('backBtn').addEventListener('click', function() {
+  if (current === 0) return;
+  current--;
+  showClue(current, -1);
+});
+
+document.getElementById('restartBtn').addEventListener('click', function() {
+  current = 0;
+  maxReached = 0;
+  document.getElementById('completeCard').style.display = 'none';
+  document.getElementById('clueCard').style.display = 'block';
+  showClue(0, undefined);
+  hopBunny(0, null);
+});
+
+/* init */
+window.addEventListener('load', function() {
+  const stage = document.getElementById('bunnyStage');
+  bunnyX = (stage.offsetWidth || 340) / 2 - 18;
+  document.getElementById('bunny').style.left = bunnyX + 'px';
+  showClue(0, undefined);
+});
+</script>
+</body>
 </html>
+
+
