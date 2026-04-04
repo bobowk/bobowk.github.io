@@ -259,7 +259,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🐣 Easter Egg Hunt</title>
+<title>Easter Egg Hunt</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -312,16 +312,6 @@
     margin-bottom: 1.75rem;
     animation: fadeDown 0.6s ease both;
   }
-  .header-icon {
-    font-size: 3rem;
-    display: block;
-    margin-bottom: 0.4rem;
-    animation: bounce 2s ease-in-out infinite;
-  }
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-  }
   .header h1 {
     font-size: clamp(1.5rem, 5vw, 2rem);
     font-weight: 800;
@@ -351,7 +341,7 @@
   }
   .pip {
     flex: 1;
-    max-width: 44px;
+    max-width: 38px;
     height: 8px;
     border-radius: 4px;
     background: var(--border);
@@ -404,13 +394,6 @@
     border-radius: 20px;
     margin-bottom: 1rem;
     border: 1px solid var(--pink-light);
-  }
-
-  .clue-emoji {
-    font-size: 2.8rem;
-    display: block;
-    margin-bottom: 0.75rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
   }
 
   .clue-text {
@@ -504,12 +487,6 @@
     background: linear-gradient(90deg, var(--mint), var(--yellow), var(--pink), var(--lilac));
     border-radius: var(--radius) var(--radius) 0 0;
   }
-  .confetti-row {
-    font-size: 2rem;
-    display: block;
-    margin-bottom: 0.75rem;
-    letter-spacing: 4px;
-  }
   .complete-card h2 {
     font-size: 1.7rem;
     font-weight: 800;
@@ -542,28 +519,6 @@
     color: var(--pink);
   }
 
-  /* ── decorative eggs ── */
-  .deco-eggs {
-    position: fixed;
-    pointer-events: none;
-    z-index: 0;
-    inset: 0;
-    overflow: hidden;
-  }
-  .deco-egg {
-    position: absolute;
-    font-size: 1.5rem;
-    opacity: 0.18;
-    animation: floatEgg linear infinite;
-  }
-
-  @keyframes floatEgg {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.18; }
-    90% { opacity: 0.18; }
-    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-  }
-
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-14px); }
     to { opacity: 1; transform: translateY(0); }
@@ -583,13 +538,10 @@
 </head>
 <body>
 
-<div class="deco-eggs" id="decoEggs"></div>
-
 <div class="page">
   <header class="header">
-    <span class="header-icon">🐣</span>
     <h1>Easter Egg Hunt</h1>
-    <p>Follow the riddles to find all 8 eggs</p>
+    <p>Follow the riddles to find all 9 eggs</p>
   </header>
 
   <div class="progress-wrap">
@@ -599,19 +551,17 @@
 
   <div class="clue-card" id="clueCard">
     <div class="clue-badge" id="clueNum"></div>
-    <span class="clue-emoji" id="clueEmoji"></span>
     <div class="clue-text" id="clueText"></div>
     <div class="btn-row">
       <button class="btn btn-back" id="backBtn">← Back</button>
-      <button class="btn btn-found" id="foundBtn">Found it! 🥚</button>
+      <button class="btn btn-found" id="foundBtn">Found it!</button>
     </div>
     <div class="reveal-msg" id="revealMsg"></div>
   </div>
 
   <div class="complete-card" id="completeCard">
-    <span class="confetti-row">🎊🥚🌸</span>
     <h2>You did it!</h2>
-    <p>Every egg has been found.<br>Hope the hunt was worth it — happy Easter! 🐰</p>
+    <p>Every egg has been found.<br>Hope the hunt was worth it — happy Easter!</p>
     <button class="btn-restart" id="restartBtn">↺ Start over</button>
   </div>
 </div>
@@ -619,66 +569,45 @@
 <script>
 const clues = [
   {
-    emoji: "🪥",
-    text: "Behind the mirror where mornings begin,\nwhere sunscreen and deodorant are carefully kept in.\nYour first egg is waiting somewhere to meet.",
+    text: "Every morning you face it, but it never faces back. Behind it lies a door — and within that door, something is waiting for you.",
     location: "Bathroom cabinet"
   },
   {
-    emoji: "🌀",
-    text: "It spins and it tumbles, it's warm to the touch,\nclothes go in wet and come out dry.\nPeek where the heat hides, where socks go to dry.\nYour egg is inside — no need to ask why.",
+    text: "Wet things go in. Warm, dry things come out. It does its work with a slight rumble and heat. Look inside.",
     location: "Dryer"
   },
   {
-    emoji: "🍽️",
-    text: "Where plates and glasses sleep standing tall,\nbehind the closed doors of the room with them all.\nThe table nearby has seen many a feast —\ncheck every shelf, starting left, then go east.",
+    text: "In the area where the family gathers to eat, in a machine where bread dough is made and mixed.",
     location: "Dining room cabinet"
   },
   {
-    emoji: "🔥",
-    text: "It bakes and it roasts, it does things with heat,\nthe home of the casserole, biscuits, and meat.\nDon't turn it on — just open the door,\nyour egg is waiting right there on the floor.",
+    text: "Cakes and bread find warmth in here. Open it up and find them inside.",
     location: "Oven"
   },
   {
-    emoji: "🥁",
-    text: "It's beaten and battered, it's hit with a stick,\nbut never complains — not even a flick.\nWhere rhythm is kept and beats fill the air,\nyour egg is hiding — look under with care.",
+    text: "See Psalm 150:5",
     location: "Drum kit"
   },
   {
-    emoji: "👟",
-    text: "Soles and laces all lined in a row,\nwhere your feet get their armour before you go.\nFind your egg here — and while you're about,\npop on your shoes before you head out!",
+    text: "They carry you everywhere and ask for nothing. Find where they rest when you don't need them — then put a pair on before you take the next step.",
     location: "Shoe cabinet"
   },
   {
-    emoji: "🚗",
-    text: "Where raindrops land but never stay long,\nwhere wipers dance to a windswept song.\nOutside the house but part of your day —\nyour egg is stuck right in plain display.",
+    text: "It stands at the edge of the property. Letters visit it. Today, so does something else.",
+    location: "Mailbox"
+  },
+  {
+    text: "It protects you from wind, bugs and rain whilst you drive. Something is lying there.",
     location: "Windshield"
   },
   {
-    emoji: "🗂️",
-    text: "The last egg hides where grown-ups keep maps,\nreceipts and manuals and similar scraps.\nThe bigger of two in the front of the ride —\nopen it up. Your egg is inside.",
-    location: "Glovebox (the big one)"
+    text: "I store what proves you belong, what explains how things work, and sometimes what helps when things go wrong. I stay closed unless there’s a reason. What am I?",
+    location: "Glovebox"
   }
 ];
 
 let current = 0;
 let maxReached = 0;
-
-/* floating background eggs */
-(function spawnDecoEggs() {
-  const stage = document.getElementById('decoEggs');
-  const eggs = ['🥚','🐣','🌸','🌷','🐰'];
-  for (let i = 0; i < 10; i++) {
-    const el = document.createElement('div');
-    el.className = 'deco-egg';
-    el.textContent = eggs[Math.floor(Math.random() * eggs.length)];
-    el.style.left = Math.random() * 100 + 'vw';
-    el.style.bottom = '-60px';
-    const dur = 14 + Math.random() * 16;
-    const delay = Math.random() * 20;
-    el.style.animation = `floatEgg ${dur}s ${delay}s linear infinite`;
-    stage.appendChild(el);
-  }
-})();
 
 function buildProgress() {
   const el = document.getElementById('progress');
@@ -695,21 +624,20 @@ function buildProgress() {
 function showClue(index, direction) {
   const c = clues[index];
   document.getElementById('clueNum').textContent = 'Clue ' + (index + 1) + ' of ' + clues.length;
-  document.getElementById('clueEmoji').textContent = c.emoji;
   document.getElementById('clueText').textContent = c.text;
 
   const revealMsg = document.getElementById('revealMsg');
   const foundBtn = document.getElementById('foundBtn');
 
   if (index < maxReached) {
-    revealMsg.textContent = '✓ Found: ' + c.location;
+    revealMsg.textContent = 'Found: ' + c.location;
     revealMsg.classList.add('show');
-    foundBtn.textContent = 'Found it! 🥚';
+    foundBtn.textContent = 'Found it!';
     foundBtn.disabled = false;
   } else {
     revealMsg.textContent = '';
     revealMsg.classList.remove('show');
-    foundBtn.textContent = 'I found it! 🥚';
+    foundBtn.textContent = 'I found it!';
     foundBtn.disabled = false;
   }
 
@@ -721,7 +649,7 @@ document.getElementById('foundBtn').addEventListener('click', function() {
   if (current >= maxReached) maxReached = current + 1;
 
   const revealMsg = document.getElementById('revealMsg');
-  revealMsg.textContent = '✓ Found: ' + clues[current].location;
+  revealMsg.textContent = 'Found: ' + clues[current].location;
   revealMsg.classList.add('show');
 
   this.disabled = true;
