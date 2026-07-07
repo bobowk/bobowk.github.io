@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trip Planner — Itinerary & Financials</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#182338;
+    --ink-soft:#4a5568;
+    --paper:#efe9dc;
+    --paper-raised:#f7f3e9;
+    --line:#d8cfba;
+    --poppy:#c1432e;
+    --poppy-dark:#9c3423;
+    --teal:#2f6f62;
+    --gold:#c9a227;
+    --steel:#4a6fa5;
+    --brown:#8e5b3c;
+    --purple:#7a5289;
+    --gray:#6b7280;
+
+    --cat-flights:#2f6f62;
+    --cat-lodging:#c9a227;
+    --cat-food:#c1432e;
+    --cat-activities:#4a6fa5;
+    --cat-transport:#8e5b3c;
+    --cat-shopping:#7a5289;
+    --cat-other:#6b7280;
+
+    --radius:10px;
+    --shadow:0 2px 10px rgba(24,35,56,0.08), 0 1px 2px rgba(24,35,56,0.06);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, rgba(24,35,56,0.05) 1px, transparent 0) 0 0/16px 16px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+  }
+
+  h1,h2,h3{font-family:'Fraunces', serif; margin:0;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+
+  .app{max-width:1180px; margin:0 auto; padding:28px 20px 80px;}
+
+  /* ===== Ticket Header ===== */
+  .ticket-header{
+    position:relative;
+    background:var(--ink);
+    color:var(--paper-raised);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    overflow:visible;
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+  }
+  .ticket-main{padding:28px 32px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.18em;
+    color:var(--gold);
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  .trip-name-input{
+    background:transparent;
+    border:none;
+    color:var(--paper-raised);
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:34px;
+    width:100%;
+    padding:2px 0;
+    border-bottom:1px solid transparent;
+  }
+  .trip-name-input:focus{outline:none; border-bottom:1px solid rgba(239,233,220,0.4);}
+  .trip-dest-input{
+    background:transparent;
+    border:none;
+    color:rgba(239,233,220,0.75);
+    font-size:15px;
+    font-style:italic;
+    font-family:'Fraunces', serif;
+    width:100%;
+    margin-top:4px;
+    padding:2px 0;
+  }
+  .trip-dest-input:focus{outline:none;}
+  .trip-dates{display:flex; gap:22px; margin-top:20px; flex-wrap:wrap;}
+  .trip-dates label{
+    display:flex; flex-direction:column; gap:5px;
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:rgba(239,233,220,0.55);
+  }
+  .trip-dates input{
+    background:rgba(239,233,220,0.08);
+    border:1px solid rgba(239,233,220,0.18);
+    color:var(--paper-raised);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding:7px 9px;
+    border-radius:6px;
+  }
+  .trip-dates input:focus{outline:1px solid var(--gold);}
+
+  /* perforation divider with ticket notches */
+  .perforation{
+    position:relative;
+    width:0;
+    border-left:2px dashed rgba(239,233,220,0.28);
+    margin:0;
+  }
+  .perforation::before, .perforation::after{
+    content:"";
+    position:absolute;
+    left:-11px;
+    width:22px; height:22px;
+    background:var(--paper);
+    border-radius:50%;
+  }
+  .perforation::before{top:-11px;}
+  .perforation::after{bottom:-11px;}
+
+  .ticket-stub{padding:28px 30px; display:flex; flex-direction:column; gap:16px; justify-content:center;}
+  .budget-row{display:flex; align-items:center; gap:10px;}
+  .budget-row label{
+    font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:rgba(239,233,220,0.55);
+  }
+  .budget-row select, .budget-row input{
+    background:rgba(239,233,220,0.08);
+    border:1px solid rgba(239,233,220,0.18);
+    color:var(--paper-raised);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+    padding:8px 10px;
+    border-radius:6px;
+  }
+  .budget-row select{cursor:pointer;}
+  .budget-row input{width:100%;}
+  .budget-row input:focus, .budget-row select:focus{outline:1px solid var(--gold);}
+
+  .progress-bar{
+    height:10px; border-radius:6px; overflow:hidden;
+    background:rgba(239,233,220,0.12);
+  }
+  .progress-fill{
+    height:100%; width:0%;
+    background:linear-gradient(90deg, var(--teal), var(--gold));
+    transition:width .4s ease, background .4s ease;
+  }
+  .progress-fill.over{background:linear-gradient(90deg, var(--poppy-dark), var(--poppy));}
+
+  .stub-stats{display:flex; justify-content:space-between; gap:10px;}
+  .stub-stats > div{display:flex; flex-direction:column; gap:2px;}
+  .stub-stats span{font-family:'IBM Plex Mono', monospace; font-size:17px; font-weight:600;}
+  .stub-stats label{font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:rgba(239,233,220,0.5);}
+
+  /* ===== Main grid ===== */
+  .grid{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:22px;
+    margin-top:26px;
+    align-items:start;
+  }
+  @media (max-width:880px){ .grid{grid-template-columns:1fr;} .ticket-header{grid-template-columns:1fr;} .perforation{display:none;} }
+
+  .panel-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;}
+  .panel-head h2{font-size:22px; font-weight:600;}
+
+  button{
+    font-family:'Inter', sans-serif;
+    cursor:pointer;
+    border:none;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper-raised);
+    padding:10px 16px;
+    border-radius:8px;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.02em;
+    box-shadow:var(--shadow);
+  }
+  .btn-primary:hover{background:#232f47;}
+
+  /* ===== Itinerary panel ===== */
+  .itinerary-panel{background:var(--paper-raised); border-radius:14px; padding:20px 20px 26px; box-shadow:var(--shadow);}
+  .day-group{margin-bottom:22px;}
+  .day-group:last-child{margin-bottom:0;}
+  .day-title{
+    display:flex; align-items:baseline; gap:10px;
+    font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink-soft);
+    padding-bottom:8px; margin-bottom:12px;
+    border-bottom:1px solid var(--line);
+  }
+  .day-title .day-total{
+    margin-left:auto;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:600;
+    color:var(--ink);
+    text-transform:none; letter-spacing:0;
+  }
+  .day-drop{min-height:8px;}
+  .day-drop.drag-over{background:rgba(47,111,98,0.08); border-radius:8px;}
+
+  .item-card{
+    position:relative;
+    display:flex;
+    background:var(--paper);
+    border-radius:10px;
+    margin-bottom:10px;
+    box-shadow:0 1px 3px rgba(24,35,56,0.06);
+    border-left:4px solid var(--gray);
+    overflow:hidden;
+    cursor:grab;
+  }
+  .item-card.dragging{opacity:.4;}
+  .item-card .cat-flights{border-left-color:var(--cat-flights);}
+  .item-card.cat-lodging{border-left-color:var(--cat-lodging);}
+  .item-card.cat-food{border-left-color:var(--cat-food);}
+  .item-card.cat-activities{border-left-color:var(--cat-activities);}
+  .item-card.cat-transport{border-left-color:var(--cat-transport);}
+  .item-card.cat-shopping{border-left-color:var(--cat-shopping);}
+  .item-card.cat-other{border-left-color:var(--cat-other);}
+
+  .item-time{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px; font-weight:600;
+    color:var(--ink);
+    padding:14px 4px 14px 16px;
+    min-width:64px;
+  }
+  .item-body{flex:1; padding:14px 12px;}
+  .item-title-row{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .item-title{font-weight:600; font-size:15px;}
+  .item-cat-tag{
+    font-size:10px; text-transform:uppercase; letter-spacing:.06em;
+    padding:2px 7px; border-radius:20px;
+    background:rgba(24,35,56,0.06);
+    color:var(--ink-soft);
+  }
+  .item-loc{font-size:12.5px; color:var(--ink-soft); margin-top:3px;}
+  .item-notes{font-size:12.5px; color:var(--ink-soft); margin-top:5px; font-style:italic;}
+
+  .item-side{
+    display:flex; flex-direction:column; align-items:flex-end; justify-content:space-between;
+    padding:12px 14px;
+    border-left:1px dashed var(--line);
+    background:repeating-linear-gradient(to bottom, transparent 0 6px, transparent 6px);
+    min-width:96px;
+  }
+  .item-cost{font-family:'IBM Plex Mono', monospace; font-weight:600; font-size:14px;}
+  .item-actions{display:flex; gap:6px; margin-top:8px;}
+  .icon-btn{
+    background:none; padding:3px 6px; border-radius:5px; font-size:12px; color:var(--ink-soft);
+  }
+  .icon-btn:hover{background:rgba(24,35,56,0.08); color:var(--ink);}
+
+  .empty-state{
+    text-align:center; padding:50px 20px; color:var(--ink-soft);
+  }
+  .empty-state p{margin:6px 0;}
+  .empty-state .big{font-family:'Fraunces', serif; font-size:20px; color:var(--ink);}
+
+  /* ===== Financials panel ===== */
+  .financials-panel{display:flex; flex-direction:column; gap:18px;}
+  .fin-block{background:var(--paper-raised); border-radius:14px; padding:18px 20px; box-shadow:var(--shadow);}
+  .fin-block h3{font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-soft); margin-bottom:14px;}
+
+  .cat-row{margin-bottom:12px;}
+  .cat-row:last-child{margin-bottom:0;}
+  .cat-row-top{display:flex; justify-content:space-between; font-size:13px; margin-bottom:5px;}
+  .cat-row-top .cname{display:flex; align-items:center; gap:7px; font-weight:500;}
+  .cat-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .cat-row-top .camt{font-family:'IBM Plex Mono', monospace;}
+  .cat-bar-track{height:7px; background:rgba(24,35,56,0.06); border-radius:5px; overflow:hidden;}
+  .cat-bar-fill{height:100%; border-radius:5px;}
+
+  .day-fin-row{display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--line); font-size:13px;}
+  .day-fin-row:last-child{border-bottom:none;}
+  .day-fin-row .dlabel{color:var(--ink-soft);}
+  .day-fin-row .damt{font-family:'IBM Plex Mono', monospace; font-weight:600;}
+
+  .no-data{font-size:13px; color:var(--ink-soft); font-style:italic;}
+
+  /* ===== Modal ===== */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(20,25,38,0.55);
+    display:flex; align-items:center; justify-content:center;
+    padding:20px; z-index:50;
+  }
+  .modal-overlay.hidden{display:none;}
+  .modal{
+    background:var(--paper-raised);
+    border-radius:14px;
+    padding:26px 28px 22px;
+    width:100%; max-width:460px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.3);
+    max-height:88vh; overflow-y:auto;
+  }
+  .modal h2{font-size:20px; margin-bottom:18px;}
+  .field-row{display:flex; gap:12px;}
+  .field{margin-bottom:14px; flex:1;}
+  .field label{
+    display:block; font-size:11px; text-transform:uppercase; letter-spacing:.07em;
+    color:var(--ink-soft); margin-bottom:6px;
+  }
+  .field input, .field select, .field textarea{
+    width:100%;
+    border:1px solid var(--line);
+    background:#fff;
+    padding:9px 10px;
+    border-radius:7px;
+    font-family:'Inter', sans-serif;
+    font-size:13.5px;
+    color:var(--ink);
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:2px solid var(--steel); outline-offset:0;}
+  .field textarea{resize:vertical; min-height:50px; font-family:'Inter', sans-serif;}
+  .modal-actions{display:flex; justify-content:flex-end; gap:10px; margin-top:6px;}
+  .btn-ghost{background:transparent; color:var(--ink-soft); padding:10px 14px; border-radius:8px; font-size:13px; font-weight:600;}
+  .btn-ghost:hover{background:rgba(24,35,56,0.06); color:var(--ink);}
+  .btn-danger{background:var(--poppy); color:#fff; padding:10px 14px; border-radius:8px; font-size:13px; font-weight:600;}
+  .btn-danger:hover{background:var(--poppy-dark);}
+
+  .modal-title-row{display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;}
+
+  ::selection{background:var(--gold); color:var(--ink);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <header class="ticket-header">
+    <div class="ticket-main">
+      <div class="eyebrow">Trip Itinerary &amp; Budget</div>
+      <input id="tripName" class="trip-name-input" value="Untitled Trip" maxlength="60">
+      <input id="tripDest" class="trip-dest-input" placeholder="Add a destination…" maxlength="60">
+      <div class="trip-dates">
+        <label>Depart
+          <input type="date" id="startDate">
+        </label>
+        <label>Return
+          <input type="date" id="endDate">
+        </label>
+      </div>
+    </div>
+    <div class="perforation"></div>
+    <div class="ticket-stub">
+      <div class="budget-row">
+        <label>Budget</label>
+        <select id="currency">
+          <option value="A$">A$ AUD</option>
+          <option value="$">$ USD</option>
+          <option value="€">€ EUR</option>
+          <option value="£">£ GBP</option>
+          <option value="¥">¥ JPY</option>
+          <option value="NZ$">NZ$ NZD</option>
+        </select>
+        <input type="number" id="budgetInput" placeholder="0" min="0" step="10">
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="stub-stats">
+        <div><span id="statSpent" class="mono">—</span><label>Planned spend</label></div>
+        <div><span id="statRemaining" class="mono">—</span><label>Remaining</label></div>
+        <div><span id="statPercent" class="mono">—</span><label>Of budget</label></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="itinerary-panel">
+      <div class="panel-head">
+        <h2>Itinerary</h2>
+        <button class="btn-primary" id="addItemBtn">+ Add a stop</button>
+      </div>
+      <div id="itineraryList"></div>
+    </section>
+
+    <aside class="financials-panel">
+      <div class="fin-block">
+        <h3>Spend by category</h3>
+        <div id="categoryBars"></div>
+      </div>
+      <div class="fin-block">
+        <h3>Spend by day</h3>
+        <div id="dayBars"></div>
+      </div>
+    </aside>
+  </main>
+
+</div>
+
+<div class="modal-overlay hidden" id="modalOverlay">
+  <form class="modal" id="itemForm">
+    <div class="modal-title-row">
+      <h2 id="modalTitle">Add a stop</h2>
+    </div>
+    <input type="hidden" id="itemId">
+
+    <div class="field">
+      <label for="itemTitle">What is it</label>
+      <input type="text" id="itemTitle" placeholder="e.g. Flight to Lisbon, Hotel check-in, Ramen at Ichiran" required maxlength="80">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="itemDay">Day</label>
+        <input type="date" id="itemDay" required>
+      </div>
+      <div class="field">
+        <label for="itemTime">Time</label>
+        <input type="time" id="itemTime">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="itemLocation">Location</label>
+      <input type="text" id="itemLocation" placeholder="e.g. Lisbon Airport" maxlength="80">
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="itemCategory">Category</label>
+        <select id="itemCategory">
+          <option value="flights">Flights</option>
+          <option value="lodging">Lodging</option>
+          <option value="food">Food &amp; drink</option>
+          <option value="activities">Activities</option>
+          <option value="transport">Local transport</option>
+          <option value="shopping">Shopping</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="itemCost">Cost</label>
+        <input type="number" id="itemCost" placeholder="0" min="0" step="0.01">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="itemNotes">Notes</label>
+      <textarea id="itemNotes" placeholder="Confirmation numbers, reminders, anything worth remembering…" maxlength="240"></textarea>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn-danger hidden" id="deleteBtn">Delete</button>
+      <button type="button" class="btn-ghost" id="cancelBtn">Cancel</button>
+      <button type="submit" class="btn-primary">Save stop</button>
+    </div>
+  </form>
+</div>
+
+<script>
+(function(){
+
+  // ---------- State ----------
+  let state = {
+    tripName: "Untitled Trip",
+    destination: "",
+    startDate: "",
+    endDate: "",
+    currency: "A$",
+    budget: null,
+    items: [] // {id, title, day, time, location, category, cost, notes, order}
+  };
+
+  const CATEGORY_LABELS = {
+    flights: "Flights",
+    lodging: "Lodging",
+    food: "Food & drink",
+    activities: "Activities",
+    transport: "Local transport",
+    shopping: "Shopping",
+    other: "Other"
+  };
+  const CATEGORY_VAR = {
+    flights: "--cat-flights",
+    lodging: "--cat-lodging",
+    food: "--cat-food",
+    activities: "--cat-activities",
+    transport: "--cat-transport",
+    shopping: "--cat-shopping",
+    other: "--cat-other"
+  };
+
+  let idCounter = 1;
+  let dragItemId = null;
+
+  // ---------- Helpers ----------
+  function uid(){ return "item-" + (idCounter++); }
+
+  function fmtMoney(n){
+    const v = Math.round((n + Number.EPSILON) * 100) / 100;
+    return state.currency + v.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+
+  function fmtDayLabel(dateStr){
+    if(!dateStr) return "Unscheduled";
+    const d = new Date(dateStr + "T00:00:00");
+    if(isNaN(d)) return "Unscheduled";
+    return d.toLocaleDateString(undefined, {weekday:'short', month:'short', day:'numeric', year:'numeric'});
+  }
+
+  function fmtTime(t){
+    if(!t) return "—";
+    const [h,m] = t.split(":").map(Number);
+    const ap = h >= 12 ? "PM" : "AM";
+    const h12 = ((h+11)%12)+1;
+    return h12 + ":" + String(m).padStart(2,"0") + " " + ap;
+  }
+
+  function allDayKeysInRange(){
+    const keys = [];
+    if(state.startDate && state.endDate){
+      let cur = new Date(state.startDate + "T00:00:00");
+      const end = new Date(state.endDate + "T00:00:00");
+      if(!isNaN(cur) && !isNaN(end) && cur <= end){
+        while(cur <= end){
+          keys.push(cur.toISOString().slice(0,10));
+          cur.setDate(cur.getDate()+1);
+        }
+      }
+    }
+    return keys;
+  }
+
+  function getGroupedDays(){
+    const rangeKeys = allDayKeysInRange();
+    const itemDayKeys = [...new Set(state.items.map(i => i.day || ""))];
+    const allKeys = new Set([...rangeKeys, ...itemDayKeys]);
+    let keys = [...allKeys];
+    keys.sort((a,b) => {
+      if(a === "") return 1;
+      if(b === "") return -1;
+      return a.localeCompare(b);
+    });
+    return keys;
+  }
+
+  // ---------- Rendering ----------
+  function render(){
+    renderHeader();
+    renderItinerary();
+    renderFinancials();
+  }
+
+  function renderHeader(){
+    const totalCost = state.items.reduce((s,i) => s + (Number(i.cost)||0), 0);
+    document.getElementById("statSpent").textContent = fmtMoney(totalCost);
+
+    const budget = Number(state.budget);
+    const fill = document.getElementById("progressFill");
+
+    if(budget && budget > 0){
+      const pct = (totalCost / budget) * 100;
+      fill.style.width = Math.min(pct, 100) + "%";
+      fill.classList.toggle("over", pct > 100);
+      document.getElementById("statRemaining").textContent = fmtMoney(budget - totalCost);
+      document.getElementById("statPercent").textContent = Math.round(pct) + "%";
+    } else {
+      fill.style.width = "0%";
+      fill.classList.remove("over");
+      document.getElementById("statRemaining").textContent = "—";
+      document.getElementById("statPercent").textContent = "—";
+    }
+  }
+
+  function renderItinerary(){
+    const list = document.getElementById("itineraryList");
+    list.innerHTML = "";
+
+    const dayKeys = getGroupedDays();
+
+    if(state.items.length === 0 && dayKeys.filter(k=>k).length === 0){
+      list.innerHTML = `<div class="empty-state">
+        <p class="big">No stops yet</p>
+        <p>Add flights, hotels, meals, and activities — then tag each with a cost to track your budget as you plan.</p>
+      </div>`;
+      return;
+    }
+
+    dayKeys.forEach(dayKey => {
+      const dayItems = state.items
+        .filter(i => (i.day || "") === dayKey)
+        .sort((a,b) => {
+          const ta = a.time || "99:99", tb = b.time || "99:99";
+          if(ta !== tb) return ta.localeCompare(tb);
+          return (a.order||0) - (b.order||0);
+        });
+
+      const group = document.createElement("div");
+      group.className = "day-group";
+
+      const dayTotal = dayItems.reduce((s,i) => s + (Number(i.cost)||0), 0);
+
+      const title = document.createElement("div");
+      title.className = "day-title";
+      title.innerHTML = `<span>${fmtDayLabel(dayKey)}</span><span class="day-total">${dayItems.length ? fmtMoney(dayTotal) : ""}</span>`;
+      group.appendChild(title);
+
+      const drop = document.createElement("div");
+      drop.className = "day-drop";
+      drop.dataset.day = dayKey;
+
+      if(dayItems.length === 0){
+        const hint = document.createElement("div");
+        hint.className = "no-data";
+        hint.style.padding = "6px 2px 4px";
+        hint.textContent = "Nothing planned — drag a stop here or add one.";
+        drop.appendChild(hint);
+      }
+
+      dayItems.forEach(item => drop.appendChild(renderItemCard(item)));
+
+      drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("drag-over"); });
+      drop.addEventListener("dragleave", () => drop.classList.remove("drag-over"));
+      drop.addEventListener("drop", e => {
+        e.preventDefault();
+        drop.classList.remove("drag-over");
+        if(dragItemId){
+          const it = state.items.find(i => i.id === dragItemId);
+          if(it){
+            it.day = dayKey;
+            it.order = Date.now();
+            render();
+          }
+        }
+      });
+
+      group.appendChild(drop);
+      list.appendChild(group);
+    });
+  }
+
+  function renderItemCard(item){
+    const card = document.createElement("div");
+    card.className = "item-card cat-" + item.category;
+    card.draggable = true;
+    card.dataset.id = item.id;
+
+    card.innerHTML = `
+      <div class="item-time mono">${fmtTime(item.time)}</div>
+      <div class="item-body">
+        <div class="item-title-row">
+          <span class="item-title">${escapeHtml(item.title)}</span>
+          <span class="item-cat-tag">${CATEGORY_LABELS[item.category] || "Other"}</span>
+        </div>
+        ${item.location ? `<div class="item-loc">📍 ${escapeHtml(item.location)}</div>` : ""}
+        ${item.notes ? `<div class="item-notes">${escapeHtml(item.notes)}</div>` : ""}
+      </div>
+      <div class="item-side">
+        <div class="item-cost">${item.cost ? fmtMoney(Number(item.cost)) : "—"}</div>
+        <div class="item-actions">
+          <button type="button" class="icon-btn edit-btn" title="Edit">Edit</button>
+        </div>
+      </div>
+    `;
+
+    card.querySelector(".edit-btn").addEventListener("click", () => openModal(item.id));
+
+    card.addEventListener("dragstart", () => { dragItemId = item.id; card.classList.add("dragging"); });
+    card.addEventListener("dragend", () => { dragItemId = null; card.classList.remove("dragging"); });
+
+    return card;
+  }
+
+  function renderFinancials(){
+    // by category
+    const catTotals = {};
+    state.items.forEach(i => {
+      const c = i.category || "other";
+      catTotals[c] = (catTotals[c] || 0) + (Number(i.cost)||0);
+    });
+    const grandTotal = Object.values(catTotals).reduce((s,v)=>s+v,0);
+
+    const catBarsEl = document.getElementById("categoryBars");
+    catBarsEl.innerHTML = "";
+
+    const catsWithData = Object.keys(CATEGORY_LABELS).filter(c => catTotals[c] > 0);
+
+    if(catsWithData.length === 0){
+      catBarsEl.innerHTML = `<div class="no-data">Add costs to your stops to see the breakdown.</div>`;
+    } else {
+      catsWithData
+        .sort((a,b) => catTotals[b] - catTotals[a])
+        .forEach(cat => {
+          const amt = catTotals[cat];
+          const pct = grandTotal ? (amt/grandTotal*100) : 0;
+          const row = document.createElement("div");
+          row.className = "cat-row";
+          row.innerHTML = `
+            <div class="cat-row-top">
+              <span class="cname"><span class="cat-dot" style="background:var(${CATEGORY_VAR[cat]})"></span>${CATEGORY_LABELS[cat]}</span>
+              <span class="camt">${fmtMoney(amt)}</span>
+            </div>
+            <div class="cat-bar-track"><div class="cat-bar-fill" style="width:${pct}%; background:var(${CATEGORY_VAR[cat]})"></div></div>
+          `;
+          catBarsEl.appendChild(row);
+        });
+    }
+
+    // by day
+    const dayBarsEl = document.getElementById("dayBars");
+    dayBarsEl.innerHTML = "";
+    const dayKeys = getGroupedDays().filter(k => state.items.some(i => (i.day||"") === k));
+
+    if(dayKeys.length === 0){
+      dayBarsEl.innerHTML = `<div class="no-data">No costs scheduled yet.</div>`;
+    } else {
+      dayKeys.forEach(k => {
+        const total = state.items.filter(i => (i.day||"") === k).reduce((s,i)=>s+(Number(i.cost)||0),0);
+        const row = document.createElement("div");
+        row.className = "day-fin-row";
+        row.innerHTML = `<span class="dlabel">${fmtDayLabel(k)}</span><span class="damt">${fmtMoney(total)}</span>`;
+        dayBarsEl.appendChild(row);
+      });
+    }
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement("div");
+    div.textContent = str || "";
+    return div.innerHTML;
+  }
+
+  // ---------- Modal ----------
+  const overlay = document.getElementById("modalOverlay");
+  const form = document.getElementById("itemForm");
+
+  function openModal(itemId){
+    form.reset();
+    document.getElementById("itemId").value = "";
+    document.getElementById("deleteBtn").classList.add("hidden");
+    document.getElementById("modalTitle").textContent = "Add a stop";
+
+    if(itemId){
+      const item = state.items.find(i => i.id === itemId);
+      if(item){
+        document.getElementById("itemId").value = item.id;
+        document.getElementById("itemTitle").value = item.title || "";
+        document.getElementById("itemDay").value = item.day || "";
+        document.getElementById("itemTime").value = item.time || "";
+        document.getElementById("itemLocation").value = item.location || "";
+        document.getElementById("itemCategory").value = item.category || "other";
+        document.getElementById("itemCost").value = item.cost || "";
+        document.getElementById("itemNotes").value = item.notes || "";
+        document.getElementById("modalTitle").textContent = "Edit stop";
+        document.getElementById("deleteBtn").classList.remove("hidden");
+      }
+    } else {
+      document.getElementById("itemDay").value = state.startDate || "";
+    }
+    overlay.classList.remove("hidden");
+    document.getElementById("itemTitle").focus();
+  }
+
+  function closeModal(){
+    overlay.classList.add("hidden");
+  }
+
+  document.getElementById("addItemBtn").addEventListener("click", () => openModal(null));
+  document.getElementById("cancelBtn").addEventListener("click", closeModal);
+  overlay.addEventListener("click", e => { if(e.target === overlay) closeModal(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape" && !overlay.classList.contains("hidden")) closeModal(); });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const id = document.getElementById("itemId").value;
+    const data = {
+      title: document.getElementById("itemTitle").value.trim(),
+      day: document.getElementById("itemDay").value,
+      time: document.getElementById("itemTime").value,
+      location: document.getElementById("itemLocation").value.trim(),
+      category: document.getElementById("itemCategory").value,
+      cost: parseFloat(document.getElementById("itemCost").value) || 0,
+      notes: document.getElementById("itemNotes").value.trim()
+    };
+
+    if(id){
+      const item = state.items.find(i => i.id === id);
+      Object.assign(item, data);
+    } else {
+      data.id = uid();
+      data.order = Date.now();
+      state.items.push(data);
+    }
+    closeModal();
+    render();
+  });
+
+  document.getElementById("deleteBtn").addEventListener("click", () => {
+    const id = document.getElementById("itemId").value;
+    state.items = state.items.filter(i => i.id !== id);
+    closeModal();
+    render();
+  });
+
+  // ---------- Trip meta bindings ----------
+  document.getElementById("tripName").addEventListener("input", e => { state.tripName = e.target.value; });
+  document.getElementById("tripDest").addEventListener("input", e => { state.destination = e.target.value; });
+  document.getElementById("startDate").addEventListener("change", e => { state.startDate = e.target.value; render(); });
+  document.getElementById("endDate").addEventListener("change", e => { state.endDate = e.target.value; render(); });
+  document.getElementById("currency").addEventListener("change", e => { state.currency = e.target.value; render(); });
+  document.getElementById("budgetInput").addEventListener("input", e => { state.budget = e.target.value === "" ? null : parseFloat(e.target.value); render(); });
+
+  // ---------- Seed with example data ----------
+  function seed(){
+    const today = new Date();
+    const start = new Date(today); start.setDate(start.getDate()+21);
+    const end = new Date(start); end.setDate(end.getDate()+4);
+    const iso = d => d.toISOString().slice(0,10);
+
+    state.startDate = iso(start);
+    state.endDate = iso(end);
+    document.getElementById("startDate").value = state.startDate;
+    document.getElementById("endDate").value = state.endDate;
+    state.tripName = "Lisbon Long Weekend";
+    state.destination = "Lisbon, Portugal";
+    document.getElementById("tripName").value = state.tripName;
+    document.getElementById("tripDest").value = state.destination;
+    state.budget = 1800;
+    document.getElementById("budgetInput").value = state.budget;
+
+    const d0 = state.startDate;
+    const d1 = iso((()=>{const d=new Date(start); d.setDate(d.getDate()+1); return d;})());
+    const d2 = iso((()=>{const d=new Date(start); d.setDate(d.getDate()+2); return d;})());
+
+    state.items = [
+      {id:uid(), title:"Flight MEL → LIS", day:d0, time:"07:15", location:"Melbourne Airport", category:"flights", cost:920, notes:"Confirmation QF7741", order:1},
+      {id:uid(), title:"Check in — Hotel Alfama", day:d0, time:"16:00", location:"Alfama, Lisbon", category:"lodging", cost:410, notes:"3 nights, ask for a river view", order:2},
+      {id:uid(), title:"Dinner at Ramiro", day:d0, time:"20:00", location:"Cais de Santos", category:"food", cost:75, notes:"Book ahead — no reservations after 7pm", order:3},
+      {id:uid(), title:"Belém Tower & pastéis de nata", day:d1, time:"10:00", location:"Belém", category:"activities", cost:35, notes:"", order:1},
+      {id:uid(), title:"Tram 28 ride", day:d1, time:"14:30", location:"Martim Moniz", category:"transport", cost:15, notes:"", order:2},
+      {id:uid(), title:"Sintra day trip", day:d2, time:"09:00", location:"Sintra", category:"activities", cost:120, notes:"Train from Rossio, arrive early", order:1}
+    ];
+  }
+
+  seed();
+  render();
+
+})();
+</script>
+</body>
+</html>
